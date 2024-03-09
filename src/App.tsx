@@ -1,6 +1,15 @@
+import { useState } from "react";
 import bg from "./assets/bg.png";
+import { GiBleedingEye } from "react-icons/gi";
+import { GiEyelashes } from "react-icons/gi";
 
 function App() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="h-screen w-screen flex flex-col">
       <div className=" z-10 my-auto justify-center ">
@@ -20,10 +29,25 @@ function App() {
                 </div>
                 <div className="flex-col text-3xl w-full">
                   <h1>SENHA:</h1>
-                  <input
-                    type="password"
-                    className="text-black p-2 rounded-3xl h-[36px] bg-input-gray text-lg w-full focus:outline-none focus:ring focus:ring-black"
-                  />
+                  <div className="flex relative h-full justify-center">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      className="text-black p-2 rounded-3xl h-[36px] bg-input-gray text-lg w-full focus:outline-none focus:ring focus:ring-black"
+                    />
+                    {showPassword ? (
+                      <GiBleedingEye
+                        className="absolute top-0 right-0 mt-1 mr-2 cursor-pointer"
+                        onClick={togglePasswordVisibility}
+                        style={{ color: "black" }}
+                      />
+                    ) : (
+                      <GiEyelashes
+                        className="absolute top-0 right-0 mt-1 mr-2 cursor-pointer"
+                        onClick={togglePasswordVisibility}
+                        style={{ color: "black" }}
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
 
