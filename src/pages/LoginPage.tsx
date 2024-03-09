@@ -57,15 +57,18 @@ function Login() {
               </button>
             </div>
           </div>
-          <div className="bg-login-gray mt-10 w-fit px-4 flex items-center justify-center text-lg p-2 rounded-3xl gap-x-3 text-center">
+          <Link
+            to={"/create-account"}
+            className="bg-login-gray mt-10 w-fit px-4 flex items-center justify-center text-lg p-2 rounded-3xl gap-x-3 text-center group"
+          >
             <h1>NÃO TEM CADASTRO?</h1>
             <Link
               to={"/create-account"}
-              className="bg-red-bordo p-1 px-3 rounded-3xl ml-3 hover:bg-red-900 duration-300 transition-colors "
+              className="bg-red-bordo p-1 px-3 rounded-3xl ml-3 group-hover:bg-red-900 duration-300 transition-colors "
             >
               CADASTRE-SE
             </Link>
-          </div>
+          </Link>
         </div>
       </div>
       <img src={bg} className="w-screen h-screen fixed z-0" />
