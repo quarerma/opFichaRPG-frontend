@@ -28,7 +28,7 @@ function App() {
                   />
                 </div>
                 <div className="flex-col text-3xl w-full">
-                  <h1>SENHA:</h1>
+                  <h1 className="mb-1">SENHA:</h1>
                   <div className="flex relative h-full justify-center">
                     <input
                       type={showPassword ? "text" : "password"}
