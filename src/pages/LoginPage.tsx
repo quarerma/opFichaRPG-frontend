@@ -1,9 +1,10 @@
 import { useState } from "react";
-import bg from "./assets/bg.png";
+import bg from "../assets/bg.png";
 import { GiBleedingEye } from "react-icons/gi";
 import { GiEyelashes } from "react-icons/gi";
+import { Link } from "react-router-dom";
 
-function App() {
+function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -58,9 +59,12 @@ function App() {
           </div>
           <div className="bg-login-gray mt-10 w-fit px-4 flex items-center justify-center text-lg p-2 rounded-3xl gap-x-3 text-center">
             <h1>NÃO TEM CADASTRO?</h1>
-            <button className="bg-red-bordo p-1 px-3 rounded-3xl ml-3 hover:bg-red-900 duration-300 transition-colors ">
+            <Link
+              to={"/create-account"}
+              className="bg-red-bordo p-1 px-3 rounded-3xl ml-3 hover:bg-red-900 duration-300 transition-colors "
+            >
               CADASTRE-SE
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -70,4 +74,4 @@ function App() {
   );
 }
 
-export default App;
+export default Login;
