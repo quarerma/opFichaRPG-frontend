@@ -14,7 +14,7 @@ function App() {
     <div className="h-screen w-screen flex flex-col">
       <div className=" z-10 my-auto justify-center ">
         <div className=" flex flex-col items-center justify-center text-white font-bold font-oswald">
-          <div className=" gap-y-3  w-[380px] h-[330px] rounded-xl bg-login-gray px-[48px]">
+          <div className=" gap-y-3  w-[380px] max-sm:w-[300px] h-[330px] rounded-xl bg-login-gray px-[48px] max-sm:px-5">
             <div className="w-full h-full items-center justify-center flex flex-col">
               <h1 className=" text-white text-center w-full text-4xl mb-5 ">
                 LOGIN
