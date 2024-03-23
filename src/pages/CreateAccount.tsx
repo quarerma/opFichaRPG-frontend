@@ -4,12 +4,14 @@ import { GiBleedingEye } from "react-icons/gi";
 import { GiEyelashes } from "react-icons/gi";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
+import axios, { AxiosError } from "axios";
+import { BASE_URL } from "../env";
 
-// type CreateAccountProps = {
-//   userName: string;
-//   email: string;
-//   password: string;
-// };
+type CreateAccountProps = {
+  username: string;
+  email: string;
+  password: string;
+};
 
 const emailSchema = z.string().email();
 
@@ -76,15 +78,20 @@ export const CreateAccount = () => {
     setError("");
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    console.log("submitting form");
     setConfirmPasswordError(false);
     if (password !== confirmPassword) {
       setConfirmPasswordError(true);
     }
-    if (!userName || !email || !password || !confirmPassword) {
+
+    if (!userName && !email && !password && !confirmPassword) {
       setError("Preencha todos os campos!");
+      return;
     }
+
     if (
       userNameError ||
       emailError ||
@@ -96,15 +103,31 @@ export const CreateAccount = () => {
     }
 
     try {
-      //const response = await api.post("/users", { userName, email, password });
-      //console.log(response);
-    } catch (err) {
-      setError("Erro ao cadastrar usuário!");
-      return;
-    }
-    navigate("/login");
-  };
+      const newAccount: CreateAccountProps = {
+        username: userName,
+        email,
+        password,
+      };
 
+      const response = await axios.post(`${BASE_URL}users/create`, newAccount);
+      console.log(response);
+
+      navigate("/login");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+
+        if (axiosError.response) {
+          const status = axiosError.response.status;
+          const data = axiosError.response.data;
+          if (status === 409) {
+            console.log("entrou");
+            setError(data.message);
+          }
+        }
+      }
+    }
+  };
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
