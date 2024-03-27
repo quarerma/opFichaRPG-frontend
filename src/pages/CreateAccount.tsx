@@ -137,7 +137,7 @@ export const CreateAccount = () => {
   };
 
   return (
-    <div className="h-screen w-screen flex flex-col text-white font-bold font-oswald">
+    <div className="h-screen w-screen flex flex-col text-white font-bold font-oswald ">
       <div className=" z-10 my-auto justify-center ">
         <div className=" flex flex-col items-center justify-center ">
           <div className=" gap-y-3  w-[380px] max-sm:w-[300px] h-fit py-5 rounded-xl bg-login-gray shadow-2xl px-8 max-sm:px-5">
