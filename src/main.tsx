@@ -11,6 +11,8 @@ import { CreateAccount } from "./pages/CreateAccount.tsx";
 import HomePage from "./pages/protected.pages.tsx/Home.tsx";
 import { Protected } from "./pages/protected.pages.tsx/components/Protected.tsx";
 import UnProtected from "./pages/protected.pages.tsx/components/UnProtected.tsx";
+import Campaings from "./pages/protected.pages.tsx/Campaigns.tsx";
+import DM_Campaings from "./pages/protected.pages.tsx/DM_Campaings.tsx";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,22 @@ const router = createBrowserRouter([
       <UnProtected>
         <Login />
       </UnProtected>
+    ),
+  },
+  {
+    path: "/mesas",
+    element: (
+      <Protected>
+        <Campaings />
+      </Protected>
+    ),
+  },
+  {
+    path: "/mestrando",
+    element: (
+      <Protected>
+        <DM_Campaings />
+      </Protected>
     ),
   },
   {

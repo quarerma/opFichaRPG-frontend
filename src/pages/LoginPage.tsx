@@ -2,9 +2,10 @@ import { useState } from "react";
 import bg from "../assets/bg.png";
 import { GiBleedingEye } from "react-icons/gi";
 import { GiEyelashes } from "react-icons/gi";
-import { Link } from "react-router-dom";
+
 import axios, { AxiosError } from "axios";
 import { BASE_URL } from "../env";
+import { Link } from "react-router-dom";
 interface UserLogin {
   username: string;
   password: string;
