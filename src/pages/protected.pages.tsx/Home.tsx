@@ -34,7 +34,7 @@ export const HomePage = () => {
         <LogOff />
       </div>
       <Link
-        to="/mesas"
+        to="/campanhas"
         className="bg-login-gray mt-10 mx-10 w-fit text-3xl p-2"
       >
         Mesas
@@ -46,7 +46,9 @@ export const HomePage = () => {
         Mestrando
       </Link>
     </div>
-  ) : null;
+  ) : (
+    <div className="w-screen h-screen bg-red-950"></div>
+  );
 };
 
 export default HomePage;

@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/mesas",
+    path: "/campanhas",
     element: (
       <Protected>
         <Campaings />
