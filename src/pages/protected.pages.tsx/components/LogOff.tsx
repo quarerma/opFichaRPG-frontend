@@ -11,7 +11,7 @@ export const LogOff = () => {
       }}
     >
       <div className="group flex">
-        <RiLogoutBoxLine className="mt-2 " />
+        <RiLogoutBoxLine className="mt-1 " />
         <span className="mt-1  text-[1.3rem] -translate-y-52 w-0  group-hover:translate-y-0 duration-500  pointer-events-none ">
           Sair
         </span>

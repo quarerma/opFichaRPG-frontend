@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import LogOff from "./components/LogOff";
-import { RedirectHome } from "./components/RedirectHome";
+
 import axios from "axios";
 import { BASE_URL } from "../../env";
 import { Campaign } from "../../types/campaign.entity";
+import HomeLogOff from "./components/HomeLogOff";
+import CampaignViewPortrait from "./components/CampaignViewPortrait";
 
 export const DM_Campaings = () => {
   const [campaings, setCampaings] = useState<Campaign[] | null>(null);
@@ -23,7 +24,6 @@ export const DM_Campaings = () => {
         );
 
         setCampaings(response.data);
-        console.log(campaings);
       } catch (e) {
         console.log("erro");
       }
@@ -32,20 +32,22 @@ export const DM_Campaings = () => {
   }, []);
 
   return (
-    <div className="w-screen">
-      <div className="flex right-0 w-full relative">
-        <RedirectHome />
-        <LogOff />
-      </div>
-      <div className="flex flex-col">
-        <h1 className="text-3xl">Campanhas</h1>
-        <div className="flex flex-col">
-          {campaings?.map((campaing) => (
-            <div key={campaing.id} className="flex flex-col">
-              <h2>{campaing.name}</h2>
-              <p>{campaing.description}</p>
-            </div>
-          ))}
+    <div className="w-screen bg-red-bordo h-screen text-white font-oswald">
+      <HomeLogOff />
+      <div className="flex flex-col px-12 ">
+        <div className="mt-16 flex flex-col space-y-10">
+          <h1 className="text-3xl">MINHAS CAMPANHAS:</h1>
+          <div className="grid lg:grid-cols-4 md:grid-cols-3 gap-10 auto-rows-[200px] ">
+            {campaings ? (
+              campaings.map((campaing) => (
+                <CampaignViewPortrait campaign={campaing} />
+              ))
+            ) : (
+              <div className=" absolute -translate-x-1/2 top-1/2 left-1/2 -translate-y-1/2">
+                <h1 className="text-4xl font-thin">CARREGANDO...</h1>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

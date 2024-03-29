@@ -27,7 +27,7 @@ export const HomePage = () => {
     findUser();
   }, []);
 
-  return (
+  return user ? (
     <div className="w-screen h-screen bg-red-950 text-white font-oswald flex flex-col">
       <div className="p-5 mt-10 mx-10 w-fit text-3xl bg-login-gray flex gap-x-5">
         <span>Bem vindo(a), {user?.username}</span>
@@ -46,7 +46,7 @@ export const HomePage = () => {
         Mestrando
       </Link>
     </div>
-  );
+  ) : null;
 };
 
 export default HomePage;
