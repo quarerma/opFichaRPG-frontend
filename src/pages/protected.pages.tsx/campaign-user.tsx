@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../env";
 import { Campaign } from "../../types/campaign.entity";
-import HomeLogOff from "./components/HomeLogOff";
-import CampaignViewPortrait from "./components/CampaignViewPortrait";
-import { JoinCampaign } from "./components/JoinCampaign";
+import HomeLogOff from "./components/home-and-logoff";
+import CampaignViewPortrait from "./components/campaign-view";
+import { JoinCampaign } from "./components/join-campaign";
 
 export const DM_Campaings = () => {
   const [campaings, setCampaings] = useState<Campaign[] | null>(null);

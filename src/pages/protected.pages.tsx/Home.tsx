@@ -4,7 +4,7 @@ import { User } from "../../types/user.entity";
 import axios from "axios";
 import { BASE_URL } from "../../env";
 import { Link } from "react-router-dom";
-import LogOff from "./components/LogOff";
+import LogOff from "./components/logoff";
 
 export const HomePage = () => {
   const [user, setUser] = useState<User | null>(null);

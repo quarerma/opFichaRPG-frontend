@@ -6,13 +6,12 @@ import {
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
-import Login from "./pages/LoginPage.tsx";
-import { CreateAccount } from "./pages/CreateAccount.tsx";
-import HomePage from "./pages/protected.pages.tsx/Home.tsx";
-import { Protected } from "./pages/protected.pages.tsx/components/Protected.tsx";
-import UnProtected from "./pages/protected.pages.tsx/components/UnProtected.tsx";
-import Campaings from "./pages/protected.pages.tsx/Campaigns.tsx";
-import DM_Campaings from "./pages/protected.pages.tsx/DM_Campaings.tsx";
+import Login from "./pages/login-page.tsx";
+import { CreateAccount } from "./pages/create-account.tsx";
+import { Protected } from "./pages/protected.pages.tsx/components/protected-page.tsx";
+import UnProtected from "./pages/protected.pages.tsx/components/unprotected-page.tsx";
+import Campaings from "./pages/protected.pages.tsx/campaign-user.tsx";
+import DM_Campaings from "./pages/protected.pages.tsx/campaign-dm.tsx";
 
 const router = createBrowserRouter([
   {

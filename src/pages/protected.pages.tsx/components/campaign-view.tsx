@@ -10,7 +10,7 @@ export const CampaignViewPortrait = ({
 }: CampaignViewPortraitProps) => {
   return (
     <Link
-      to={`/campaign/view/${campaign.id}`}
+      to={`/campanhas/view/${campaign.id}`}
       className="bg-login-gray rounded-3xl text-center overflow-hidden flex flex-col p-5 space-y-5 text-3xl"
     >
       <h1 className="underline">{campaign.name}</h1>
