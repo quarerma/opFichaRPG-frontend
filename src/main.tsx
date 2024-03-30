@@ -12,6 +12,9 @@ import { Protected } from "./pages/protected.pages.tsx/components/protected-page
 import UnProtected from "./pages/protected.pages.tsx/components/unprotected-page.tsx";
 import Campaings from "./pages/protected.pages.tsx/campaign-user.tsx";
 import DM_Campaings from "./pages/protected.pages.tsx/campaign-dm.tsx";
+import HomePage from "./pages/protected.pages.tsx/home.tsx";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./lib/react-query.ts";
 
 const router = createBrowserRouter([
   {
@@ -25,17 +28,21 @@ const router = createBrowserRouter([
   {
     path: "/campanhas",
     element: (
-      <Protected>
-        <Campaings />
-      </Protected>
+      <QueryClientProvider client={queryClient}>
+        <Protected>
+          <Campaings />
+        </Protected>
+      </QueryClientProvider>
     ),
   },
   {
     path: "/mestrando",
     element: (
-      <Protected>
-        <DM_Campaings />
-      </Protected>
+      <QueryClientProvider client={queryClient}>
+        <Protected>
+          <DM_Campaings />
+        </Protected>
+      </QueryClientProvider>
     ),
   },
   {
@@ -53,9 +60,11 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: (
-      <Protected>
-        <HomePage />
-      </Protected>
+      <QueryClientProvider client={queryClient}>
+        <Protected>
+          <HomePage />
+        </Protected>
+      </QueryClientProvider>
     ),
   },
 ]);

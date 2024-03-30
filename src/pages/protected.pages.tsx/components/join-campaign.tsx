@@ -1,18 +1,10 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
-import { Campaign } from "../../../types/campaign.entity";
 import axios from "axios";
 import { BASE_URL } from "../../../env";
 
-interface JoinCampaignProps {
-  campaigns: Campaign[] | null;
-  setCampaigns: React.Dispatch<React.SetStateAction<Campaign[] | null>>;
-}
-export const JoinCampaign = ({
-  setCampaigns,
-  campaigns,
-}: JoinCampaignProps) => {
+export const JoinCampaign = () => {
   const [campaignId, setCampaignId] = useState<string>("");
 
   const handleJoinCampaign = async () => {
@@ -27,9 +19,8 @@ export const JoinCampaign = ({
           },
         }
       );
-      if (response.data) {
-        setCampaigns([...(campaigns as Campaign[]), response.data]);
-      }
+
+      console.log(response);
     } catch (e) {
       console.log(e);
     }

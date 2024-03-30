@@ -105,7 +105,7 @@ export const CreateAccount = () => {
 
     try {
       const newAccount: CreateAccountProps = {
-        username: userName,
+        username: userName.trim(),
         email,
         password,
       };

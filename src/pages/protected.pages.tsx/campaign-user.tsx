@@ -1,37 +1,14 @@
-import { useEffect, useState } from "react";
-
-import axios from "axios";
-import { BASE_URL } from "../../env";
-import { Campaign } from "../../types/campaign.entity";
 import HomeLogOff from "./components/home-and-logoff";
 import CampaignViewPortrait from "./components/campaign-view";
 import { JoinCampaign } from "./components/join-campaign";
+import { useQuery } from "@tanstack/react-query";
+import { getCampaignsAsPlayerData } from "../../data/campaigns-data";
 
 export const DM_Campaings = () => {
-  const [campaings, setCampaings] = useState<Campaign[] | null>(null);
-
-  useEffect(() => {
-    const findCampaings = async () => {
-      const token: string | null = localStorage.getItem("jwt");
-      try {
-        const response = await axios.get(
-          `${BASE_URL}campaigns/getMyCampaigns`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        setCampaings(response.data);
-      } catch (e) {
-        console.log("erro");
-      }
-    };
-    findCampaings();
-  }, []);
-
+  const { data: userCampaigns } = useQuery({
+    queryKey: ["userCampaigns"],
+    queryFn: getCampaignsAsPlayerData,
+  });
   return (
     <div className="w-screen bg-red-bordo h-screen text-white font-oswald">
       <HomeLogOff />
@@ -39,9 +16,9 @@ export const DM_Campaings = () => {
         <div className="mt-16 flex flex-col space-y-10">
           <h1 className="text-3xl">MESAS:</h1>
           <div className="grid lg:grid-cols-4 md:grid-cols-3 gap-10 auto-rows-[200px] ">
-            <JoinCampaign setCampaigns={setCampaings} campaigns={campaings} />
-            {campaings ? (
-              campaings.map((campaing) => (
+            <JoinCampaign />
+            {userCampaigns ? (
+              userCampaigns.map((campaing) => (
                 <CampaignViewPortrait campaign={campaing} />
               ))
             ) : (
