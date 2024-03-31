@@ -1,11 +1,11 @@
 import { FormEvent, useEffect, useState } from "react";
-import bg from "../assets/bg.png";
+import bg from "../../assets/bg.png";
 import { GiBleedingEye } from "react-icons/gi";
 import { GiEyelashes } from "react-icons/gi";
 import { z } from "zod";
 import { Link, useNavigate } from "react-router-dom";
 import axios, { AxiosError } from "axios";
-import { BASE_URL } from "../env";
+import { BASE_URL } from "../../env";
 import { IoReturnUpBack } from "react-icons/io5";
 
 type CreateAccountProps = {

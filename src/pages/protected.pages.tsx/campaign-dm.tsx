@@ -2,6 +2,7 @@ import HomeLogOff from "./components/home-and-logoff";
 import CampaignViewPortrait from "./components/campaign-view";
 import { useQuery } from "@tanstack/react-query";
 import { getCampaignsAsGameMasterData } from "../../data/campaigns-data";
+import { CreateCampaignComponent } from "./components/create-campaign-component";
 
 export const DM_Campaings = () => {
   const { data: campaings } = useQuery({
@@ -15,6 +16,7 @@ export const DM_Campaings = () => {
         <div className="mt-16 flex flex-col space-y-10">
           <h1 className="text-3xl">MINHAS CAMPANHAS:</h1>
           <div className="grid lg:grid-cols-4 md:grid-cols-3 gap-10 auto-rows-[200px] ">
+            <CreateCampaignComponent />
             {campaings ? (
               campaings.map((campaing) => (
                 <CampaignViewPortrait campaign={campaing} />
