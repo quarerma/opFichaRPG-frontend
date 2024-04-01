@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Campaign } from "../../../types/campaign.entity";
+import { Campaign } from "../../../../types/campaign.entity";
 
 interface CampaignViewPortraitProps {
   campaign: Campaign;

@@ -8,14 +8,14 @@ import {
 } from "react-router-dom";
 import Login from "./pages/unprotected-pages/login-page.tsx";
 import { CreateAccount } from "./pages/unprotected-pages/create-account.tsx";
-import { Protected } from "./pages/protected.pages.tsx/components/protected-page.tsx";
-import UnProtected from "./pages/protected.pages.tsx/components/unprotected-page.tsx";
-import Campaings from "./pages/protected.pages.tsx/campaign-user.tsx";
-import DM_Campaings from "./pages/protected.pages.tsx/campaign-dm.tsx";
-import HomePage from "./pages/protected.pages.tsx/home.tsx";
+import { Protected } from "./pages/protected-pages/components/protected-page.tsx";
+import UnProtected from "./pages/protected-pages/components/unprotected-page.tsx";
+import Campaings from "./pages/protected-pages/campaign-user.tsx";
+import DM_Campaings from "./pages/protected-pages/campaign-dm.tsx";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/react-query.ts";
-import CreateCampaign from "./pages/protected.pages.tsx/create-campaign-page.tsx";
+import CreateCampaign from "./pages/protected-pages/create-campaign-page.tsx";
+import HomePage from "./pages/protected-pages/Home.tsx";
 
 const router = createBrowserRouter([
   {

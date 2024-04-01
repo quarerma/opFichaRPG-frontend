@@ -1,4 +1,4 @@
-import LogOff from "./logoff";
+import LogOff from "./LogOff";
 import { RedirectHome } from "./redirect-home";
 
 export const HomeLogOff = () => {
