@@ -3,11 +3,13 @@ import { useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import axios from "axios";
 import { BASE_URL } from "../../../env";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const JoinCampaign = () => {
+  const queryClient = useQueryClient();
   const [campaignId, setCampaignId] = useState<string>("");
 
-  const handleJoinCampaign = async () => {
+  async function handleJoinCampaign() {
     try {
       const response = await axios.patch(
         `${BASE_URL}users/joinCampaign/${campaignId}`,
@@ -20,11 +22,17 @@ export const JoinCampaign = () => {
         }
       );
 
-      console.log(response);
+      const cachedData = queryClient.getQueryData(["userCampaigns"]);
+
+      queryClient.setQueryData(
+        ["userCampaigns"],
+        // ignore the error here, it's a bug in the types
+        [...cachedData, response.data]
+      );
     } catch (e) {
       console.log(e);
     }
-  };
+  }
   return (
     <Dialog.Root>
       <Dialog.Trigger className="bg-login-gray rounded-3xl text-center overflow-hidden flex flex-col p-5 space-y-5 text-3xl">
