@@ -16,6 +16,8 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/react-query.ts";
 import CreateCampaign from "./pages/protected-pages/create-campaign-page.tsx";
 import HomePage from "./pages/protected-pages/Home.tsx";
+import ViewCampaign from "./pages/protected-pages/view-campaign.tsx";
+import CreateCharacter from "./pages/protected-pages/create-character.tsx";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +42,26 @@ const router = createBrowserRouter([
       <QueryClientProvider client={queryClient}>
         <Protected>
           <Campaings />
+        </Protected>
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: "/campanhas/view/:id",
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <Protected>
+          <ViewCampaign />
+        </Protected>
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: "/campanhas/:id/criar-personagem",
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <Protected>
+          <CreateCharacter />
         </Protected>
       </QueryClientProvider>
     ),

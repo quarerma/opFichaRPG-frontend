@@ -89,6 +89,7 @@ export function CreateCampaign() {
             selectButton ? "bg-red-bordo hover:bg-red-950" : "bg-gray-900 "
           }`}
           disabled={!selectButton}
+          type="submit"
         >
           Criar
         </button>

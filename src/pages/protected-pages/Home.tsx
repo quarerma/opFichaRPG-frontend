@@ -17,13 +17,13 @@ export const HomePage = () => {
       </div>
       <Link
         to="/campanhas"
-        className="bg-login-gray mt-10 mx-10 w-fit text-3xl p-2"
+        className="bg-login-gray mt-10 mx-10 w-fit text-3xl p-2 rounded-lg"
       >
         Mesas
       </Link>
       <Link
         to="/mestrando"
-        className="bg-login-gray mt-10 mx-10 w-fit text-3xl p-2"
+        className="bg-login-gray mt-10 mx-10 w-fit text-3xl p-2 rounded-lg"
       >
         Mestrando
       </Link>
