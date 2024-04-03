@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from "../env";
 import { CreateCharacterSchema } from "../pages/protected-pages/create-character";
-import { Character } from "../types/character.entity";
+import { Attacks, Character } from "../types/character.entity";
 import { v4 as uuidv4 } from "uuid";
 
 export async function createCharacter(
@@ -30,6 +30,24 @@ export async function createCharacter(
     );
     console.log(newCharacter);
     return response.data as Character;
+  } catch (e) {
+    console.log("erro");
+  }
+}
+
+export async function addAttack(attack: Attacks, characterId: string) {
+  try {
+    const token: string | null = localStorage.getItem("jwt");
+    await axios.patch(
+      `${BASE_URL}characters/addAttack/${characterId}`,
+      attack,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   } catch (e) {
     console.log("erro");
   }

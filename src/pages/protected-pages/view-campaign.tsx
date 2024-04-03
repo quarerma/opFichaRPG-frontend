@@ -1,21 +1,18 @@
 import { useParams } from "react-router-dom";
 import { checkIfUserIsDM } from "../../auth/campaign.auth";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ViewCampaignAsPlayer from "./components/view-campaign-player";
 
 function ViewCampaign() {
   const campaignId = useParams().id;
   const [isDM, setIsDM] = useState<boolean | undefined>(undefined);
 
-  useEffect(() => {
-    try {
-      checkIfUserIsDM(campaignId).then((response) => {
-        setIsDM(response);
-      });
-    } catch (e) {
-      console.log("Erro:", e);
-    }
-  }, [campaignId]);
+  async function checkIfUser(campaignId?: string) {
+    const response = await checkIfUserIsDM(campaignId);
+    setIsDM(response);
+  }
+
+  checkIfUser(campaignId);
 
   if (isDM === undefined) {
     return (

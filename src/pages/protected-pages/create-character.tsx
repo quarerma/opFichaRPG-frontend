@@ -15,11 +15,11 @@ const createCharacterSchema = z.object({
   maxHitPoints: z.coerce.number().gte(1),
   maxSanityPoints: z.coerce.number().gte(1),
   maxEffortPoints: z.coerce.number().gte(1),
-  strength: z.coerce.number().positive(),
-  dexterity: z.coerce.number().positive(),
-  vitality: z.coerce.number().positive(),
-  intelligence: z.coerce.number().positive(),
-  presence: z.coerce.number().positive(),
+  strength: z.coerce.number().gte(0),
+  dexterity: z.coerce.number().gte(0),
+  vitality: z.coerce.number().gte(0),
+  intelligence: z.coerce.number().gte(0),
+  presence: z.coerce.number().gte(0),
 });
 
 export type CreateCharacterSchema = z.infer<typeof createCharacterSchema>;
@@ -52,7 +52,7 @@ function CreateCharacter() {
   async function handleCreateCharacter(data: CreateCharacterSchema) {
     setSelectButton(false);
     console.log(data);
-    createCharacter(data, campaignId);
+    await createCharacter(data, campaignId);
     navigate(`/campanhas/view/${campaignId}`);
   }
   return loading ? (
