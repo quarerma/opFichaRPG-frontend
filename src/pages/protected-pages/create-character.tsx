@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { z } from "zod";
 import { createCharacter } from "../../data/character-data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HomeLogOff from "./components/home-and-logoff";
+import { getPlayerCharacter } from "../../data/campaigns-data";
 
 const createCharacterSchema = z.object({
   name: z.string().max(255),
@@ -29,6 +30,24 @@ function CreateCharacter() {
   const [selectButton, setSelectButton] = useState(true);
   const navigate = useNavigate();
   const campaignId = useParams().id;
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const checkCahracter = async () => {
+      await getPlayerCharacter(campaignId)
+        .then((response) => {
+          if (response) {
+            navigate(`/campanhas/view/${campaignId}`);
+          }
+        })
+
+        .catch((error) => {
+          console.error("Erro ao obter personagem:", error);
+        });
+    };
+    checkCahracter();
+    setLoading(false);
+  }, []);
 
   async function handleCreateCharacter(data: CreateCharacterSchema) {
     setSelectButton(false);
@@ -36,7 +55,11 @@ function CreateCharacter() {
     createCharacter(data, campaignId);
     navigate(`/campanhas/view/${campaignId}`);
   }
-  return (
+  return loading ? (
+    <div className="bg-red-bordo w-screen h-screen fixed justify-center items-center flex text-3xl font-oswald text-white">
+      Carregando...
+    </div>
+  ) : (
     <div className="max-w-screen min-h-screen bg-red-bordo text-white font-oswald flex justify-center items-center flex-col">
       <div className="w-full">
         <HomeLogOff />
@@ -108,7 +131,6 @@ function CreateCharacter() {
 
         <button
           type="submit"
-          className="p-2 rounded-2xl w-fit text-2xl mt-2 bg-red-bordo hover:bg-red-950"
           className={`p-2 rounded-2xl w-fit text-2xl mt-2 ${
             selectButton ? "bg-red-bordo hover:bg-red-950" : "bg-gray-900 "
           }`}

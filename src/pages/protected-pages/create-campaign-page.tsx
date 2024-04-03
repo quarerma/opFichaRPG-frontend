@@ -24,6 +24,7 @@ export function CreateCampaign() {
   });
 
   const navigate = useNavigate();
+
   async function handleCreateCampaign(data: CampaignFilterSchema) {
     try {
       setSelectButton(false);
