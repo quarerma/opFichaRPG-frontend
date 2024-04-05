@@ -3,11 +3,12 @@ import CampaignViewPortrait from "./components/campaign-view";
 import { JoinCampaign } from "./components/join-campaign";
 import { useQuery } from "@tanstack/react-query";
 import { getCampaignsAsPlayerData } from "../../data/campaigns-data";
+import { queryClient } from "../../lib/react-query";
 
-export const DM_Campaings = () => {
+export const UserCampaigns = () => {
   const { data: userCampaigns } = useQuery({
     queryKey: ["userCampaigns"],
-    queryFn: getCampaignsAsPlayerData,
+    queryFn: () => getCampaignsAsPlayerData(queryClient),
   });
   return (
     <div className="w-screen bg-red-bordo h-screen text-white font-oswald">
@@ -33,4 +34,4 @@ export const DM_Campaings = () => {
   );
 };
 
-export default DM_Campaings;
+export default UserCampaigns;

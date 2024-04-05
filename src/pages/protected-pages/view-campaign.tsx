@@ -1,20 +1,19 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { checkIfUserIsDM } from "../../auth/campaign.auth";
-import { useState } from "react";
 import ViewCampaignAsPlayer from "./components/view-campaign-player";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 function ViewCampaign() {
   const campaignId = useParams().id;
-  const [isDM, setIsDM] = useState<boolean | undefined>(undefined);
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
-  async function checkIfUser(campaignId?: string) {
-    const response = await checkIfUserIsDM(campaignId);
-    setIsDM(response);
-  }
+  const { data: isDm, isLoading } = useQuery({
+    queryKey: ["isDM", campaignId],
+    queryFn: () => checkIfUserIsDM(queryClient, campaignId),
+  });
 
-  checkIfUser(campaignId);
-
-  if (isDM === undefined) {
+  if (isLoading) {
     return (
       <div className="bg-red-bordo w-screen h-screen fixed justify-center items-center flex text-3xl font-oswald text-white">
         Carregando...
@@ -22,13 +21,10 @@ function ViewCampaign() {
     );
   }
 
+  if (isDm) navigate(`/campanhas/mestre/${campaignId}`);
   return (
     <div>
-      {isDM ? (
-        <h1>Você é o mestre dessa campanha</h1>
-      ) : (
-        <ViewCampaignAsPlayer />
-      )}
+      <ViewCampaignAsPlayer />
     </div>
   );
 }

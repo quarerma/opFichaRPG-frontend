@@ -26,7 +26,6 @@ export const JoinCampaign = () => {
 
       queryClient.setQueryData(
         ["userCampaigns"],
-        // ignore the error here, it's a bug in the types
         [...cachedData, response.data]
       );
     } catch (e) {

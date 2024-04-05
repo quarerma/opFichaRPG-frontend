@@ -1,27 +1,21 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { getPlayerCharacter } from "../../../data/campaigns-data";
 import HomeLogOff from "./home-and-logoff";
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import AttackView from "./attack-view";
 import AddAttack from "./add-attacks";
 
 function ViewCampaignAsPlayer() {
   const { id: campaignId } = useParams();
-  const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
-
+  const queryClient = useQueryClient();
   const { data: character, isLoading } = useQuery({
     queryKey: ["playerCharacter", campaignId],
-    queryFn: async () => {
-      const char = await getPlayerCharacter(campaignId); // Esperar a resposta da chamada assíncrona
-      setLoading(false); // Atualizar o estado de carregamento após receber a resposta
-      return char;
-    },
+    queryFn: () => getPlayerCharacter(queryClient, campaignId),
   });
 
   // Verificar se a página está carregando
-  if (isLoading || loading) {
+  if (isLoading) {
     return (
       <div className="bg-red-bordo w-screen h-screen fixed justify-center items-center flex text-3xl font-oswald text-white">
         Carregando...
@@ -29,7 +23,7 @@ function ViewCampaignAsPlayer() {
     );
   }
 
-  if (character) {
+  if (character && campaignId) {
     return (
       <div className="min-w-screen min-h-screen bg-red-bordo text-white font-oswald text-2xl flex flex-col gap-y-2">
         <HomeLogOff />
@@ -70,7 +64,7 @@ function ViewCampaignAsPlayer() {
               <AttackView key={index} attack={attack} />
             ))}
             <div className="w-full justify-center items-center flex">
-              <AddAttack characterId={character.id} />
+              <AddAttack characterId={character.id} campaignId={campaignId} />
             </div>
           </div>
         </div>

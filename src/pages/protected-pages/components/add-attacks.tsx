@@ -5,8 +5,12 @@ import { IoMdCloseCircleOutline } from "react-icons/io";
 import { z } from "zod";
 import { addAttack } from "../../../data/character-data";
 import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { Character } from "../../../types/character.entity";
+import { Toaster, toast } from "sonner";
 interface Props {
   characterId: string;
+  campaignId: string;
 }
 const createAttackSchema = z.object({
   name: z.string().max(255),
@@ -20,13 +24,36 @@ const createAttackSchema = z.object({
 });
 
 type CreateAttackSchema = z.infer<typeof createAttackSchema>;
-function AddAttack({ characterId }: Props) {
+function AddAttack({ characterId, campaignId }: Props) {
   const { register, handleSubmit } = useForm<CreateAttackSchema>({
     resolver: zodResolver(createAttackSchema),
   });
+
+  const queryClient = useQueryClient();
   const [selectButton, setSelectButton] = useState(true);
   async function handleCreateAttack(data: CreateAttackSchema) {
+    setSelectButton(false);
+
     await addAttack(data, characterId);
+
+    queryClient.setQueryData(
+      ["playerCharacter", campaignId],
+      (prevCharacter?: Character) => {
+        if (!prevCharacter) return prevCharacter;
+
+        const updatedCharacter = {
+          ...prevCharacter,
+          attacks: [...prevCharacter.attacks, data],
+        };
+
+        return updatedCharacter;
+      }
+    );
+
+    queryClient.invalidateQueries({ queryKey: ["playerCharacter"] });
+
+    toast.success("Ataque adicionado com sucesso");
+    setSelectButton(true);
   }
   return (
     <Dialog.Root>
@@ -98,6 +125,7 @@ function AddAttack({ characterId }: Props) {
           </form>
         </Dialog.Content>
       </Dialog.Portal>
+      <Toaster />
     </Dialog.Root>
   );
 }

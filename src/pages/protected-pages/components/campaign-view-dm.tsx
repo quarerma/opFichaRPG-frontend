@@ -5,12 +5,12 @@ interface CampaignViewPortraitProps {
   campaign: Campaign;
 }
 
-export const CampaignViewPortrait = ({
+export const CampaignViewPortraitDM = ({
   campaign,
 }: CampaignViewPortraitProps) => {
   return (
     <Link
-      to={`/campanhas/view/${campaign.id}`}
+      to={`/campanhas/mestre/${campaign.id}`}
       className="bg-login-gray rounded-3xl text-center overflow-hidden flex flex-col p-5 space-y-5 text-3xl"
     >
       <h1 className="underline">{campaign.name}</h1>
@@ -19,4 +19,4 @@ export const CampaignViewPortrait = ({
   );
 };
 
-export default CampaignViewPortrait;
+export default CampaignViewPortraitDM;

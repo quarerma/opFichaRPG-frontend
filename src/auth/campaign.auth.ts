@@ -1,9 +1,19 @@
 import axios from "axios";
 import { BASE_URL } from "../env";
+import { QueryClient } from "@tanstack/react-query";
 
-export async function checkIfUserIsDM(campaignId?: string) {
-  const token: string | null = localStorage.getItem("jwt");
+const token: string | null = localStorage.getItem("jwt");
+export async function checkIfUserIsDM(
+  queryClient: QueryClient,
+  campaignId?: string
+) {
+  const cachedData = queryClient.getQueryData<boolean>(["isDM", campaignId]);
+  console.log("entrou pra checar");
+  if (cachedData) {
+    return cachedData;
+  }
   try {
+    console.log("fez fetch DM");
     const response = await axios.get(
       `${BASE_URL}campaigns/checkIfGameMaster/${campaignId}`,
       {

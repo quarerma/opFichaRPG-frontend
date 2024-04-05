@@ -10,7 +10,7 @@ import Login from "./pages/unprotected-pages/login-page.tsx";
 import { CreateAccount } from "./pages/unprotected-pages/create-account.tsx";
 import { Protected } from "./pages/protected-pages/components/protected-page.tsx";
 import UnProtected from "./pages/protected-pages/components/unprotected-page.tsx";
-import Campaings from "./pages/protected-pages/campaign-user.tsx";
+import { UserCampaigns } from "./pages/protected-pages/campaign-user.tsx";
 import DM_Campaings from "./pages/protected-pages/campaign-dm.tsx";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/react-query.ts";
@@ -18,6 +18,7 @@ import CreateCampaign from "./pages/protected-pages/create-campaign-page.tsx";
 import HomePage from "./pages/protected-pages/Home.tsx";
 import ViewCampaign from "./pages/protected-pages/view-campaign.tsx";
 import CreateCharacter from "./pages/protected-pages/create-character.tsx";
+import ViewCampaignDM from "./pages/protected-pages/view-campaign-dm.tsx";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
     element: (
       <QueryClientProvider client={queryClient}>
         <Protected>
-          <Campaings />
+          <UserCampaigns />
         </Protected>
       </QueryClientProvider>
     ),
@@ -62,6 +63,16 @@ const router = createBrowserRouter([
       <QueryClientProvider client={queryClient}>
         <Protected>
           <CreateCharacter />
+        </Protected>
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: "/campanhas/mestre/:id",
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <Protected>
+          <ViewCampaignDM />
         </Protected>
       </QueryClientProvider>
     ),

@@ -4,6 +4,8 @@ import { CreateCharacterSchema } from "../pages/protected-pages/create-character
 import { Attacks, Character } from "../types/character.entity";
 import { v4 as uuidv4 } from "uuid";
 
+const token: string | null = localStorage.getItem("jwt");
+
 export async function createCharacter(
   characterData: CreateCharacterSchema,
   campaignId?: string
@@ -11,7 +13,6 @@ export async function createCharacter(
   try {
     const id = uuidv4();
 
-    const token: string | null = localStorage.getItem("jwt");
     const newCharacter = {
       id,
       ...characterData,
@@ -37,7 +38,6 @@ export async function createCharacter(
 
 export async function addAttack(attack: Attacks, characterId: string) {
   try {
-    const token: string | null = localStorage.getItem("jwt");
     await axios.patch(
       `${BASE_URL}characters/addAttack/${characterId}`,
       attack,

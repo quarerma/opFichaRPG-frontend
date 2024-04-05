@@ -1,15 +1,16 @@
 import HomeLogOff from "./components/home-and-logoff";
-import CampaignViewPortrait from "./components/campaign-view";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCampaignsAsGameMasterData } from "../../data/campaigns-data";
 import { CreateCampaignComponent } from "./components/create-campaign-component";
 import { useEffect } from "react";
 import { Toaster, toast } from "sonner";
+import CampaignViewPortraitDM from "./components/campaign-view-dm";
 
 export const DM_Campaings = () => {
+  const queryClient = useQueryClient();
   const { data: campaings } = useQuery({
     queryKey: ["DMcampaigns"],
-    queryFn: getCampaignsAsGameMasterData,
+    queryFn: () => getCampaignsAsGameMasterData(queryClient),
   });
   useEffect(() => {
     const successMessage = localStorage.getItem("successMessage");
@@ -30,7 +31,7 @@ export const DM_Campaings = () => {
             <CreateCampaignComponent />
             {campaings ? (
               campaings?.map((campaing) => (
-                <CampaignViewPortrait campaign={campaing} />
+                <CampaignViewPortraitDM campaign={campaing} />
               ))
             ) : (
               <div className=" absolute -translate-x-1/2 top-1/2 left-1/2 -translate-y-1/2">

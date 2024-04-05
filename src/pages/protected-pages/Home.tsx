@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserData } from "../../data/user-data";
 import LogOff from "./components/LogOff";
 
 export const HomePage = () => {
+  const queryClient = useQueryClient();
   const { data: user } = useQuery({
     queryKey: ["user"],
-    queryFn: getUserData,
+    queryFn: () => getUserData(queryClient),
   });
 
   return user ? (

@@ -2,9 +2,15 @@ import axios from "axios";
 import { BASE_URL } from "../env";
 import { Campaign } from "../types/campaign.entity";
 import { Character } from "../types/character.entity";
+import { QueryClient } from "@tanstack/react-query";
 
-export async function getCampaignsAsGameMasterData() {
-  const token: string | null = localStorage.getItem("jwt");
+const token: string | null = localStorage.getItem("jwt");
+export async function getCampaignsAsGameMasterData(queryClient: QueryClient) {
+  const cachedData = queryClient.getQueryData<Campaign[]>(["DMcampaigns"]);
+
+  if (cachedData) {
+    return cachedData;
+  }
   try {
     const response = await axios.get(
       `${BASE_URL}campaigns/getMyCampaignsAsGameMaster`,
@@ -22,9 +28,14 @@ export async function getCampaignsAsGameMasterData() {
   }
 }
 
-export async function getCampaignsAsPlayerData() {
-  const token: string | null = localStorage.getItem("jwt");
+export async function getCampaignsAsPlayerData(queryClient: QueryClient) {
+  const cachedData = queryClient.getQueryData<Campaign[]>(["userCampaigns"]);
+
+  if (cachedData) {
+    return cachedData;
+  }
   try {
+    console.log("fez fetch");
     const response = await axios.get(`${BASE_URL}campaigns/getMyCampaigns`, {
       headers: {
         "Content-Type": "application/json",
@@ -39,7 +50,6 @@ export async function getCampaignsAsPlayerData() {
 }
 
 export async function getCampaignById(campaignId?: string) {
-  const token: string | null = localStorage.getItem("jwt");
   try {
     const response = await axios.get(
       `${BASE_URL}campaigns/getById/${campaignId}`,
@@ -57,9 +67,20 @@ export async function getCampaignById(campaignId?: string) {
   }
 }
 
-export async function getPlayerCharacter(campaignId?: string) {
-  const token: string | null = localStorage.getItem("jwt");
+export async function getPlayerCharacter(
+  queryClient: QueryClient,
+  campaignId?: string
+) {
+  const cachedData = queryClient.getQueryData<Character>([
+    "playerCharacter",
+    campaignId,
+  ]);
+
+  if (cachedData) {
+    return cachedData;
+  }
   try {
+    console.log("fez fetch personagem");
     const response = await axios.get(
       `${BASE_URL}campaigns/getPlayerCharacter/${campaignId}`,
       {
@@ -69,8 +90,35 @@ export async function getPlayerCharacter(campaignId?: string) {
         },
       }
     );
-    console.log(response.data);
     return response.data as Character;
+  } catch (e) {
+    console.log("erro");
+  }
+}
+export async function getAllCharactersFromCampaign(
+  queryClient: QueryClient,
+  campaignId?: string
+) {
+  const cachedData = queryClient.getQueryData<Character[]>([
+    "charactersCampaign",
+    campaignId,
+  ]);
+
+  if (cachedData) {
+    return cachedData;
+  }
+  try {
+    const response = await axios.get(
+      `${BASE_URL}campaigns/getAllCharacters/${campaignId}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data as Character[];
   } catch (e) {
     console.log("erro");
   }
