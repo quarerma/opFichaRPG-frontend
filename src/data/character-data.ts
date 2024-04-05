@@ -60,7 +60,7 @@ export async function updateStats(
 ) {
   try {
     await axios.patch(
-      `${BASE_URL}characters/updateStats/${characterId}/${value}`,
+      `${BASE_URL}characters/update${stat}/${characterId}/${value}`,
       {
         headers: {
           "Content-Type": "application/json",
