@@ -52,3 +52,23 @@ export async function addAttack(attack: Attacks, characterId: string) {
     console.log("erro");
   }
 }
+
+export async function updateStats(
+  characterId: string,
+  value: number,
+  stat: string
+) {
+  try {
+    await axios.patch(
+      `${BASE_URL}characters/updateStats/${characterId}/${value}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (e) {
+    console.log("erro");
+  }
+}

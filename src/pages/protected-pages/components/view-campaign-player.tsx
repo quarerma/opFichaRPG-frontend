@@ -4,6 +4,7 @@ import HomeLogOff from "./home-and-logoff";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import AttackView from "./attack-view";
 import AddAttack from "./add-attacks";
+import UpdateStats from "./update-stats";
 
 function ViewCampaignAsPlayer() {
   const { id: campaignId } = useParams();
@@ -37,13 +38,32 @@ function ViewCampaignAsPlayer() {
             <br />
             Nível: {character.level}
           </div>
-          <div className="w-[280px] bg-login-gray p-5 rounded-lg">
-            Vida: {character.currentHitPoints}/{character.maxHitPoints}
-            <br />
-            PE: {character.currentEffortPoints}/{character.maxEffortPoints}
-            <br />
-            Sanidade: {character.currentSanityPoints}/
-            {character.maxSanityPoints}
+          <div className="w-[280px] bg-login-gray p-4 rounded-lg flex flex-col gap-y-5 ">
+            <span className="flex w-full justify-between">
+              <div className="">
+                Vida: {character.currentHitPoints}/{character.maxHitPoints}
+              </div>
+              <div className="relative">
+                <UpdateStats statsType="HitPoints" character={character} />
+              </div>
+            </span>
+            <span className="flex w-full justify-between">
+              <div className="">
+                PE: {character.currentEffortPoints}/{character.maxEffortPoints}
+              </div>
+              <div className="relative">
+                <UpdateStats statsType="EffortPoints" character={character} />
+              </div>
+            </span>
+            <span className="flex w-full justify-between">
+              <div>
+                Sanidade: {character.currentSanityPoints}/
+                {character.maxSanityPoints}
+              </div>
+              <div className="relative">
+                <UpdateStats statsType="SanityPoints" character={character} />
+              </div>
+            </span>
           </div>
           <div className="bg-login-gray p-5 w-[280px] rounded-lg">
             Força : {character.strength}
