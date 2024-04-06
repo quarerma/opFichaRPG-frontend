@@ -55,12 +55,20 @@ export async function addAttack(attack: Attacks, characterId: string) {
 
 export async function updateStats(
   characterId: string,
-  value: number,
+  value: string,
   stat: string
 ) {
+  let patchURL;
+  if (stat === "SanityPoints")
+    patchURL = `${BASE_URL}characters/updateSanityPoints`;
+  if (stat === "HitPoints") patchURL = `${BASE_URL}characters/updateHitPoints`;
+  if (stat === "EffortPoints")
+    patchURL = `${BASE_URL}characters/updateEffortPoints`;
+
+  console.log(typeof value);
   try {
-    await axios.patch(
-      `${BASE_URL}characters/update${stat}/${characterId}/${value}`,
+    await axios.get(
+      `${patchURL}/${value}/${characterId}`, // A ordem dos parâmetros deve ser mantida como você tinha inicialmente
       {
         headers: {
           "Content-Type": "application/json",
@@ -69,6 +77,6 @@ export async function updateStats(
       }
     );
   } catch (e) {
-    console.log("erro");
+    throw new Error("Erro ao atualizar stats");
   }
 }

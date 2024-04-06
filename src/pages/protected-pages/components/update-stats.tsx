@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -19,23 +19,83 @@ type UpdateAttack = z.infer<typeof updateAttack>;
 
 function UpdateStats({ statsType, character }: UpdateStatsProps) {
   const [positive, setPositive] = useState<boolean>(true);
-
-  const { register, handleSubmit } = useForm<UpdateAttack>({
+  const queryClient = useQueryClient();
+  const { register, handleSubmit, reset } = useForm<UpdateAttack>({
     resolver: zodResolver(updateAttack),
   });
 
   const { mutateAsync: updateStatValueFn } = useMutation({
-    mutationFn: (data: number) => updateStats(character.id, data, statsType), // Passando characterId e statsType como argumentos
+    mutationFn: async (data: number) =>
+      await updateStats(character.id, data.toString(), statsType), // Passando characterId e statsType como argumentos
+    onSuccess(_, variables, context) {
+      const cachedData: Character | undefined = queryClient.getQueryData([
+        "playerCharacter",
+        character.campaignId,
+      ]);
+
+      if (cachedData) {
+        if (statsType === "SanityPoints") {
+          cachedData.currentSanityPoints = variables;
+        } else if (statsType === "HitPoints") {
+          cachedData.currentHitPoints = variables;
+        } else if (statsType === "EffortPoints") {
+          cachedData.currentEffortPoints = variables;
+        }
+        queryClient.resetQueries({
+          queryKey: ["playerCharacter", character.campaignId],
+          exact: true,
+        });
+
+        queryClient.setQueryData(
+          ["playerCharacter", character.campaignId],
+          cachedData
+        );
+      }
+
+      reset();
+    },
   });
 
   async function handleUpdateAttack(data: UpdateAttack) {
+    let value;
+
+    if (positive) {
+      value = data.value;
+    } else {
+      value = -data.value;
+    }
+
+    if (statsType === "SanityPoints") {
+      value = character.currentSanityPoints + value;
+      if (value > character.maxSanityPoints) {
+        value = character.maxSanityPoints;
+      }
+    } else if (statsType === "HitPoints") {
+      value = character.currentHitPoints + value;
+      if (value > character.maxHitPoints) {
+        value = character.maxHitPoints;
+      }
+    } else if (statsType === "EffortPoints") {
+      value = character.currentEffortPoints + value;
+      if (value > character.maxEffortPoints) {
+        value = character.maxEffortPoints;
+      }
+      if (value < 0) {
+        value = 0;
+      }
+    }
+
+    if (value < 0) {
+      value = 0;
+    }
+
     try {
-      positive
-        ? await updateStatValueFn(data.value)
-        : await updateStatValueFn(-data.value); // Chamar a função updateStatValueFn com o valor positivo ou negativo
+      updateStatValueFn(value); // Chamar a função updateStatValueFn com o valor positivo ou negativo
     } catch (error) {
       console.error("Erro ao atualizar ataque:", error);
     }
+
+    setPositive(false);
   }
   return (
     <form

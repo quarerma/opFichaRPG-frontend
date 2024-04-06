@@ -32,6 +32,7 @@ export async function getCampaignsAsPlayerData(queryClient: QueryClient) {
   const cachedData = queryClient.getQueryData<Campaign[]>(["userCampaigns"]);
 
   if (cachedData) {
+    console.log("consultou novamente");
     return cachedData;
   }
   try {
@@ -75,7 +76,7 @@ export async function getPlayerCharacter(
     "playerCharacter",
     campaignId,
   ]);
-
+  console.log("em cache", cachedData);
   if (cachedData) {
     return cachedData;
   }

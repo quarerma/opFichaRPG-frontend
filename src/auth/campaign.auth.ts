@@ -8,12 +8,11 @@ export async function checkIfUserIsDM(
   campaignId?: string
 ) {
   const cachedData = queryClient.getQueryData<boolean>(["isDM", campaignId]);
-  console.log("entrou pra checar");
+
   if (cachedData) {
     return cachedData;
   }
   try {
-    console.log("fez fetch DM");
     const response = await axios.get(
       `${BASE_URL}campaigns/checkIfGameMaster/${campaignId}`,
       {

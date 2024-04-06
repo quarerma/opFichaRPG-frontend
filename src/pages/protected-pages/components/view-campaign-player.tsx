@@ -5,6 +5,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import AttackView from "./attack-view";
 import AddAttack from "./add-attacks";
 import UpdateStats from "./update-stats";
+import { useState } from "react";
 
 function ViewCampaignAsPlayer() {
   const { id: campaignId } = useParams();
@@ -14,6 +15,24 @@ function ViewCampaignAsPlayer() {
     queryKey: ["playerCharacter", campaignId],
     queryFn: () => getPlayerCharacter(queryClient, campaignId),
   });
+
+  const [temporaryHitPoints, setTemporaryHitPoints] = useState(0);
+  const [inputValue, setInputValue] = useState("");
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleAddTemporaryHitPoints = () => {
+    const value = parseInt(inputValue);
+    if (!isNaN(value) && value + temporaryHitPoints >= 0) {
+      setTemporaryHitPoints((prevPoints) => prevPoints + value);
+      setInputValue("");
+    }
+    if (!(value + temporaryHitPoints >= 0)) {
+      setTemporaryHitPoints(0);
+    }
+  };
 
   // Verificar se a página está carregando
   if (isLoading) {
@@ -62,6 +81,23 @@ function ViewCampaignAsPlayer() {
               </div>
               <div className="relative">
                 <UpdateStats statsType="SanityPoints" character={character} />
+              </div>
+            </span>
+            <span className="flex w-full justify-between">
+              <div>HP Float: {temporaryHitPoints} </div>
+              <div className="flex items-center -space-x-1">
+                <input
+                  type="number"
+                  value={inputValue}
+                  onChange={handleInputChange}
+                  className="w-12 h-8 rounded-lg border-2 text-center border-black text-black"
+                />
+                <button
+                  onClick={handleAddTemporaryHitPoints}
+                  className="rounded-full bg-green-500  w-5 h-5 text-1xl z-10 flex items-center justify-center"
+                >
+                  +
+                </button>
               </div>
             </span>
           </div>
