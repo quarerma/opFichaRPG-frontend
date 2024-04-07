@@ -28,6 +28,7 @@ function UpdateStats({ statsType, character }: UpdateStatsProps) {
     mutationFn: async (data: number) =>
       await updateStats(character.id, data.toString(), statsType), // Passando characterId e statsType como argumentos
     onSuccess(_, variables, context) {
+      console.log(context);
       const cachedData: Character | undefined = queryClient.getQueryData([
         "playerCharacter",
         character.campaignId,

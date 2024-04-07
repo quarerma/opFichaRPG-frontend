@@ -6,6 +6,7 @@ import { createCharacter } from "../../data/character-data";
 import { useEffect, useState } from "react";
 import HomeLogOff from "./components/home-and-logoff";
 import { getPlayerCharacter } from "../../data/campaigns-data";
+import { useQueryClient } from "@tanstack/react-query";
 
 const createCharacterSchema = z.object({
   name: z.string().max(255),
@@ -31,10 +32,11 @@ function CreateCharacter() {
   const navigate = useNavigate();
   const campaignId = useParams().id;
   const [loading, setLoading] = useState<boolean>(true);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const checkCahracter = async () => {
-      await getPlayerCharacter(campaignId)
+      await getPlayerCharacter(queryClient, campaignId)
         .then((response) => {
           if (response) {
             navigate(`/campanhas/view/${campaignId}`);

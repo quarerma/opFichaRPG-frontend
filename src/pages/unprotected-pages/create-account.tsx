@@ -120,8 +120,10 @@ export const CreateAccount = () => {
 
         if (axiosError.response) {
           const status = axiosError.response.status;
-          const data = axiosError.response.data;
-          if (status === 409) {
+          const data = axiosError.response.data as
+            | { message: string }
+            | undefined;
+          if (status === 409 && data) {
             setError(data.message);
           }
         }

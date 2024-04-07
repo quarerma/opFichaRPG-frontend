@@ -81,7 +81,6 @@ export async function getPlayerCharacter(
     return cachedData;
   }
   try {
-    console.log("fez fetch personagem");
     const response = await axios.get(
       `${BASE_URL}campaigns/getPlayerCharacter/${campaignId}`,
       {

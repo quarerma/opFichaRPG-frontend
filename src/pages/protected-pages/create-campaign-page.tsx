@@ -19,7 +19,7 @@ type CampaignFilterSchema = z.infer<typeof campaignFilterSchema>;
 
 export function CreateCampaign() {
   const [selectButton, setSelectButton] = useState(true);
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit } = useForm<CampaignFilterSchema>({
     resolver: zodResolver(campaignFilterSchema),
   });
 

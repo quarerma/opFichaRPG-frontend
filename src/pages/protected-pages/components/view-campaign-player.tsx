@@ -19,7 +19,7 @@ function ViewCampaignAsPlayer() {
   const [temporaryHitPoints, setTemporaryHitPoints] = useState(0);
   const [inputValue, setInputValue] = useState("");
 
-  const handleInputChange = (e) => {
+  const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setInputValue(e.target.value);
   };
 

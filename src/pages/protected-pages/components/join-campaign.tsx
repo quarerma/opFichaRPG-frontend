@@ -4,6 +4,7 @@ import { IoMdCloseCircleOutline } from "react-icons/io";
 import axios from "axios";
 import { BASE_URL } from "../../../env";
 import { useQueryClient } from "@tanstack/react-query";
+import { Campaign } from "../../../types/campaign.entity";
 
 export const JoinCampaign = () => {
   const queryClient = useQueryClient();
@@ -22,12 +23,16 @@ export const JoinCampaign = () => {
         }
       );
 
-      const cachedData = queryClient.getQueryData(["userCampaigns"]);
+      const cachedData: Campaign[] | undefined = queryClient.getQueryData([
+        "userCampaigns",
+      ]);
 
-      queryClient.setQueryData(
-        ["userCampaigns"],
-        [...cachedData, response.data]
-      );
+      if (cachedData) {
+        queryClient.setQueryData(
+          ["userCampaigns"],
+          [...cachedData, response.data]
+        );
+      }
     } catch (e) {
       console.log(e);
     }
