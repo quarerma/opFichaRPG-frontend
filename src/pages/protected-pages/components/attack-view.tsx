@@ -17,7 +17,7 @@ function AttackView({ attack }: AttackViewProps) {
     let highestRoll = 0;
     for (let i = 0; i < attack.quantityOfRollingDices; i++) {
       roll = Math.floor(Math.random() * 20) + 1;
-      console.log("rolagem", roll);
+
       if (roll > highestRoll) {
         highestRoll = roll;
       }
@@ -86,9 +86,30 @@ function AttackView({ attack }: AttackViewProps) {
           <Dialog.Close className="top-2 right-2 absolute z-50 hover:scale-125">
             <IoMdCloseCircleOutline className="text-3xl" />
           </Dialog.Close>
-          <div className="w-full flex mt-5 text-3xl gap-x-5">
-            <span>Rolagem: {dieRoll}</span>
-            <span>Dano: {damageRoll}</span>
+          <div className="w-full flex flex-col gap-y-2 text-3xl gap-x-5">
+            <div className="text-center underline text-3xl font-mono">
+              <h1>{attack.name}</h1>
+            </div>
+            <div className="flex gap-x-10">
+              <div className="flex flex-col">
+                <span>Dado</span>
+                <span className="text-center mt-2 text-4xl font-mono">
+                  {dieRoll - attack.rollModifier}
+                </span>
+              </div>
+              <div className="flex flex-col">
+                <span>Rolagem</span>
+                <span className="text-center mt-2 text-4xl font-mono">
+                  {dieRoll}
+                </span>
+              </div>
+              <div className="flex flex-col">
+                <span>Dano</span>
+                <span className="text-center mt-2 text-4xl font-mono">
+                  {damageRoll}
+                </span>
+              </div>
+            </div>
           </div>
           <button className="mt-5">
             <FaDiceD20 className="text-4xl" onClick={rollDie} />

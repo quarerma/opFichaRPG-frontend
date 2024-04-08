@@ -25,7 +25,7 @@ const createAttackSchema = z.object({
 
 type CreateAttackSchema = z.infer<typeof createAttackSchema>;
 function AddAttack({ characterId, campaignId }: Props) {
-  const { register, handleSubmit } = useForm<CreateAttackSchema>({
+  const { register, handleSubmit, reset } = useForm<CreateAttackSchema>({
     resolver: zodResolver(createAttackSchema),
   });
 
@@ -54,6 +54,7 @@ function AddAttack({ characterId, campaignId }: Props) {
 
     toast.success("Ataque adicionado com sucesso");
     setSelectButton(true);
+    reset();
   }
   return (
     <Dialog.Root>
@@ -63,15 +64,15 @@ function AddAttack({ characterId, campaignId }: Props) {
         </h1>
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black/70" />
-        <Dialog.Content className="border-1 bg-login-gray rounded-md p-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-oswald flex flex-col items-center justify-center">
-          <Dialog.Close className="top-2 right-2 absolute z-50 hover:scale-125">
-            <IoMdCloseCircleOutline className="text-3xl" />
-          </Dialog.Close>
+        <Dialog.Overlay className="fixed z-40 inset-0 bg-black/70" />
+        <Dialog.Content className="z-50 fixed inset-0 flex justify-center min-h-screen items-start overflow-y-auto">
           <form
             onSubmit={handleSubmit(handleCreateAttack)}
-            className="min-w-[300px] min-h-fit flex flex-col gap-y-2"
+            className="w-[300px] min-h-[300px]  flex flex-col gap-y-2 bg-red-bordo text-white font-oswald text-1xl text-center p-5 rounded-lg mt-5 mb-5 relative"
           >
+            <Dialog.Close className="absolute top-2 right-2 z-50 hover:scale-125">
+              <IoMdCloseCircleOutline className="text-3xl" />
+            </Dialog.Close>
             <h1>Nome</h1>
             <input
               {...register("name")}
