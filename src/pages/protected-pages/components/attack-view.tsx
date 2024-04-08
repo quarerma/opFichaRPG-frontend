@@ -81,8 +81,8 @@ function AttackView({ attack }: AttackViewProps) {
         <div className="h-[1px] w-full mt-1 bg-white"></div>
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black/70" />
-        <Dialog.Content className="border-1 bg-login-gray rounded-md p-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-oswald flex flex-col items-center justify-center">
+        <Dialog.Overlay className="fixed z-40 inset-0 bg-black/70" />
+        <Dialog.Content className="border-1 z-50 bg-login-gray rounded-md p-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-oswald flex flex-col items-center justify-center">
           <Dialog.Close className="top-2 right-2 absolute z-50 hover:scale-125">
             <IoMdCloseCircleOutline className="text-3xl" />
           </Dialog.Close>
