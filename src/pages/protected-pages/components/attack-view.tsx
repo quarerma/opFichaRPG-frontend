@@ -71,7 +71,7 @@ function AttackView({ attack }: AttackViewProps) {
           {attack.criticalRoll != 0 &&
             (attack.damageModifier != 0 ? (
               <h1>
-                Crítico: {attack.criticalDies}d{attack.damageDie} +{" "}
+                Crítico: {attack.criticalRoll}/ {attack.criticalDies}d{attack.damageDie} +{" "}
                 {attack.damageModifier}
               </h1>
             ) : (
