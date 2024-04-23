@@ -17,7 +17,7 @@ function AttackView({ attack }: AttackViewProps) {
     let highestRoll = 0;
     for (let i = 0; i < attack.quantityOfRollingDices; i++) {
       roll = Math.floor(Math.random() * 20) + 1;
-
+      console.log("dado " + i + ": " + roll); 
       if (roll > highestRoll) {
         highestRoll = roll;
       }
@@ -27,7 +27,8 @@ function AttackView({ attack }: AttackViewProps) {
     let damage = 0;
     if (highestRoll >= attack.criticalRoll && attack.criticalRoll != 0) {
       for (let i = 0; i < attack.criticalDies; i++) {
-        damage += Math.floor(Math.random() * attack.criticalRoll) + 1;
+        damage += Math.floor(Math.random() * attack.damageDie) + 1;
+      
       }
     } else {
       for (let i = 0; i < attack.quantityOfDamageDices; i++) {
