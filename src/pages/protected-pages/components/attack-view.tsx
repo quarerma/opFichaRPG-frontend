@@ -49,11 +49,13 @@ function AttackView({ attack }: AttackViewProps) {
           </h1>
           {attack.rollModifier != 0 ? (
             <h1>
-              Rolagem: {attack.quantityOfRollingDices}d20 +{" "}
-              {attack.rollModifier}
+              Rolagem: {attack.quantityOfRollingDices}/{attack.criticalRoll}d20
+              + {attack.rollModifier}
             </h1>
           ) : (
-            <h1>Rolagem: {attack.quantityOfRollingDices}d20</h1>
+            <h1>
+              Rolagem: {attack.quantityOfRollingDices}/{attack.criticalRoll}d20
+            </h1>
           )}
 
           {attack.damageModifier != 0 ? (
@@ -69,12 +71,12 @@ function AttackView({ attack }: AttackViewProps) {
           {attack.criticalRoll != 0 &&
             (attack.damageModifier != 0 ? (
               <h1>
-                Crítico: {attack.criticalDies}d{attack.criticalRoll} +{" "}
+                Crítico: {attack.criticalDies}d{attack.damageDie} +{" "}
                 {attack.damageModifier}
               </h1>
             ) : (
               <h1>
-                Crítico: {attack.criticalDies}d{attack.criticalRoll}
+                Crítico: {attack.criticalDies}d{attack.damageDie}
               </h1>
             ))}
         </div>
