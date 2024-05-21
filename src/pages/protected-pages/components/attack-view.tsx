@@ -28,7 +28,7 @@ function AttackView({ attack }: AttackViewProps) {
     if (highestRoll >= attack.criticalRoll && attack.criticalRoll != 0) {
       for (
         let i = 0;
-        i < attack.quantityOfDamageDices * attack.criticalDiesMultiplier;
+        i < attack.quantityOfDamageDices * attack.criticalDies;
         i++
       ) {
         damage += Math.floor(Math.random() * attack.damageDie) + 1;
@@ -72,11 +72,11 @@ function AttackView({ attack }: AttackViewProps) {
           {attack.criticalRoll != 0 &&
             (attack.damageModifier != 0 ? (
               <h1>
-                Crítico: {attack.criticalRoll}x{attack.criticalDiesMultiplier}
+                Crítico: {attack.criticalRoll}x{attack.criticalDies}
               </h1>
             ) : (
               <h1>
-                Crítico: {attack.criticalRoll}x{attack.criticalDiesMultiplier}
+                Crítico: {attack.criticalRoll}x{attack.criticalDies}
               </h1>
             ))}
         </div>

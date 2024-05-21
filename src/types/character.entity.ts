@@ -28,5 +28,5 @@ export type Attacks = {
   quantityOfDamageDices: number;
   damageModifier: number;
   criticalRoll: number;
-  criticalDiesMultiplier: number;
+  criticalDies: number;
 };
