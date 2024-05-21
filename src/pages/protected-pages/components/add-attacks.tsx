@@ -20,7 +20,7 @@ const createAttackSchema = z.object({
   damageDie: z.coerce.number().gte(0).lte(100),
   damageModifier: z.coerce.number().gte(0),
   criticalRoll: z.coerce.number().gte(0),
-  criticalDies: z.coerce.number().gte(0).lte(100),
+  criticalDiesMultiplier: z.coerce.number().gte(0).lte(100),
 });
 
 type CreateAttackSchema = z.infer<typeof createAttackSchema>;
@@ -103,14 +103,14 @@ function AddAttack({ characterId, campaignId }: Props) {
               {...register("damageModifier")}
               className="w-full bg-white p-2 rounded-lg text-black"
             />
-            <h1>Valor de crítico</h1>
+            <h1>Margem de Ameaça</h1>
             <input
               {...register("criticalRoll")}
               className="w-full bg-white p-2 rounded-lg text-black"
             />
-            <h1>Quantidade de dados de crítico</h1>
+            <h1>Multiplicador de Crítico</h1>
             <input
-              {...register("criticalDies")}
+              {...register("criticalDiesMultiplier")}
               className="w-full bg-white p-2 rounded-lg text-black"
             />
 

@@ -17,7 +17,7 @@ function AttackView({ attack }: AttackViewProps) {
     let highestRoll = 0;
     for (let i = 0; i < attack.quantityOfRollingDices; i++) {
       roll = Math.floor(Math.random() * 20) + 1;
-      console.log("dado " + i + ": " + roll); 
+      console.log("dado " + i + ": " + roll);
       if (roll > highestRoll) {
         highestRoll = roll;
       }
@@ -26,9 +26,12 @@ function AttackView({ attack }: AttackViewProps) {
 
     let damage = 0;
     if (highestRoll >= attack.criticalRoll && attack.criticalRoll != 0) {
-      for (let i = 0; i < attack.criticalDies; i++) {
+      for (
+        let i = 0;
+        i < attack.quantityOfDamageDices * attack.criticalDiesMultiplier;
+        i++
+      ) {
         damage += Math.floor(Math.random() * attack.damageDie) + 1;
-      
       }
     } else {
       for (let i = 0; i < attack.quantityOfDamageDices; i++) {
@@ -49,13 +52,11 @@ function AttackView({ attack }: AttackViewProps) {
           </h1>
           {attack.rollModifier != 0 ? (
             <h1>
-              Rolagem: {attack.quantityOfRollingDices}d20
-              + {attack.rollModifier}
+              Rolagem: {attack.quantityOfRollingDices}d20 +{" "}
+              {attack.rollModifier}
             </h1>
           ) : (
-            <h1>
-              Rolagem: {attack.quantityOfRollingDices}d20
-            </h1>
+            <h1>Rolagem: {attack.quantityOfRollingDices}d20</h1>
           )}
 
           {attack.damageModifier != 0 ? (
@@ -71,12 +72,11 @@ function AttackView({ attack }: AttackViewProps) {
           {attack.criticalRoll != 0 &&
             (attack.damageModifier != 0 ? (
               <h1>
-                Crítico: {attack.criticalRoll}/ {attack.criticalDies}d{attack.damageDie} +{" "}
-                {attack.damageModifier}
+                Crítico: {attack.criticalRoll}x{attack.criticalDiesMultiplier}
               </h1>
             ) : (
               <h1>
-                Crítico: {attack.criticalRoll}/ {attack.criticalDies}d{attack.damageDie}
+                Crítico: {attack.criticalRoll}x{attack.criticalDiesMultiplier}
               </h1>
             ))}
         </div>
