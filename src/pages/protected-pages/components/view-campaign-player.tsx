@@ -6,6 +6,7 @@ import AttackView from "./attack-view";
 import AddAttack from "./add-attacks";
 import UpdateStats from "./update-stats";
 import { useState } from "react";
+import { FaRegEdit } from "react-icons/fa";
 
 function ViewCampaignAsPlayer() {
   const { id: campaignId } = useParams();
@@ -48,14 +49,20 @@ function ViewCampaignAsPlayer() {
       <div className="min-w-screen min-h-screen bg-red-bordo text-white font-oswald text-2xl flex flex-col gap-y-2">
         <HomeLogOff />
         <div className="max-md:flex-col max-md:gap-y-5 flex w-fit mt-10 ml-10 rounded-lg gap-x-5">
-          <div className=" w-[280px] bg-login-gray p-5 rounded-lg">
-            Nome: {character.name}
-            <br />
-            Classe: {character.className}
-            <br />
-            Subclasse: {character.subClassName}
-            <br />
-            Nível: {character.level}
+          <div className="w-[280px] bg-login-gray p-5 rounded-lg relative">
+            <FaRegEdit
+              className="absolute right-0 cursor-pointer"
+              onClick={() => navigate(`/campanhas/editCharacter/${campaignId}`)}
+            />
+            <div className="w-full">
+              Nome: {character.name}
+              <br />
+              Classe: {character.className}
+              <br />
+              Subclasse: {character.subClassName}
+              <br />
+              Nível: {character.level}
+            </div>
           </div>
           <div className="w-[280px] bg-login-gray p-4 rounded-lg flex flex-col gap-y-5 ">
             <span className="flex w-full justify-between">

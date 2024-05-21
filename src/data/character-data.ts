@@ -1,8 +1,9 @@
 import axios from "axios";
 import { BASE_URL } from "../env";
 import { CreateCharacterSchema } from "../pages/protected-pages/create-character";
-import { Attacks, Character } from "../types/character.entity";
+import { Attacks, Character, UpdateCharacter } from "../types/character.entity";
 import { v4 as uuidv4 } from "uuid";
+import { UpdateCharacterSchema } from "../pages/protected-pages/editCharacter";
 
 const token: string | null = localStorage.getItem("jwt");
 
@@ -78,5 +79,24 @@ export async function updateStats(
     );
   } catch (e) {
     throw new Error("Erro ao atualizar stats");
+  }
+}
+export async function updateCharacter(
+  characterData: UpdateCharacterSchema,
+  characterId?: string
+): Promise<Character | undefined> {
+  try {
+    return await axios.patch(
+      `${BASE_URL}characters/updateCharacter/${characterId}`,
+      characterData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (e) {
+    console.log("erro");
   }
 }

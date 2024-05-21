@@ -19,6 +19,7 @@ import HomePage from "./pages/protected-pages/Home.tsx";
 import ViewCampaign from "./pages/protected-pages/view-campaign.tsx";
 import CreateCharacter from "./pages/protected-pages/create-character.tsx";
 import ViewCampaignDM from "./pages/protected-pages/view-campaign-dm.tsx";
+import EditCharacter from "./pages/protected-pages/editCharacter.tsx";
 
 const router = createBrowserRouter([
   {
@@ -105,6 +106,16 @@ const router = createBrowserRouter([
       <QueryClientProvider client={queryClient}>
         <Protected>
           <HomePage />
+        </Protected>
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: "/campanhas/editCharacter/:id",
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <Protected>
+          <EditCharacter />
         </Protected>
       </QueryClientProvider>
     ),
