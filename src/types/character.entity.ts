@@ -30,3 +30,18 @@ export type Attacks = {
   criticalRoll: number;
   criticalDies: number;
 };
+
+export type UpdateCharacter = {
+  name: string;
+  className: string;
+  subClassName: string;
+  level: number;
+  maxHitPoints: number;
+  maxSanityPoints: number;
+  maxEffortPoints: number;
+  strength: number;
+  dexterity: number;
+  vitality: number;
+  intelligence: number;
+  presence: number;
+};
