@@ -1,12 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { getPlayerCharacter } from "../../../data/campaigns-data";
-import HomeLogOff from "./home-and-logoff";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import AttackView from "./attack-view";
-import AddAttack from "./add-attacks";
-import UpdateStats from "./update-stats";
+import AddAttack from "./components/add-attacks";
 import { useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
+import HomeLogOff from "../../global-components/home-and-logoff";
+import UpdateStats from "./components/update-stats";
+import AttackView from "./components/attack-view";
 
 function ViewCampaignAsPlayer() {
   const { id: campaignId } = useParams();

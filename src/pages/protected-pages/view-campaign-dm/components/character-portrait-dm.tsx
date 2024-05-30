@@ -1,4 +1,4 @@
-import { Character } from "../../../types/character.entity";
+import { Character } from "../../../../types/character.entity";
 
 interface CharacterPortraitDMProps {
   character: Character;

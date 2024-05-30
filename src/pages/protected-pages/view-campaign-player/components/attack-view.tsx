@@ -1,8 +1,8 @@
-import { Attacks } from "../../../types/character.entity";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useState } from "react";
 import { FaDiceD20 } from "react-icons/fa";
 import { IoMdCloseCircleOutline } from "react-icons/io";
+import { Attacks } from "../../../../types/character.entity";
 
 interface AttackViewProps {
   attack: Attacks;

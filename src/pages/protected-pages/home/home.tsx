@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getUserData } from "../../data/user-data";
-import LogOff from "./components/LogOff";
+import { getUserData } from "../../../data/user-data";
+import LogOff from "../../global-components/LogOff";
 
 export const HomePage = () => {
   const queryClient = useQueryClient();

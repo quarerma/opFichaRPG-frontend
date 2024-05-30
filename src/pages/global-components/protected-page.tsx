@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { BASE_URL } from "../../../env";
+import { BASE_URL } from "../../env";
 
 export const Protected = ({ children }: React.PropsWithChildren) => {
   const token: string | null = localStorage.getItem("jwt");

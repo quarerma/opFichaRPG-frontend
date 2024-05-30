@@ -3,8 +3,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { updateStats } from "../../../data/character-data";
-import { Character } from "../../../types/character.entity";
+import { Character } from "../../../../types/character.entity";
+import { updateStats } from "../../../../data/character-data";
 
 interface UpdateStatsProps {
   statsType: string;

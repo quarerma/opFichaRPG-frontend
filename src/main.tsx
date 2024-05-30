@@ -1,26 +1,26 @@
 import ReactDOM from "react-dom/client";
 
-import "./index.css";
+import { QueryClientProvider } from "@tanstack/react-query";
 import {
   Navigate,
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
-import Login from "./pages/unprotected-pages/login-page.tsx";
-import { CreateAccount } from "./pages/unprotected-pages/create-account.tsx";
-import { Protected } from "./pages/protected-pages/components/protected-page.tsx";
-import UnProtected from "./pages/protected-pages/components/unprotected-page.tsx";
-import { UserCampaigns } from "./pages/protected-pages/campaign-user.tsx";
-import DM_Campaings from "./pages/protected-pages/campaign-dm.tsx";
-import { QueryClientProvider } from "@tanstack/react-query";
+import "./index.css";
 import { queryClient } from "./lib/react-query.ts";
-import CreateCampaign from "./pages/protected-pages/create-campaign-page.tsx";
-import HomePage from "./pages/protected-pages/Home.tsx";
-import ViewCampaign from "./pages/protected-pages/view-campaign.tsx";
-import CreateCharacter from "./pages/protected-pages/create-character.tsx";
-import ViewCampaignDM from "./pages/protected-pages/view-campaign-dm.tsx";
-import EditCharacter from "./pages/protected-pages/editCharacter.tsx";
-import ValidatePlayer from "./pages/protected-pages/components/wrap-validate-player.tsx";
+import { Protected } from "./pages/global-components/protected-page.tsx";
+import UnProtected from "./pages/global-components/unprotected-page.tsx";
+import ValidatePlayer from "./pages/global-components/wrap-validate-player.tsx";
+import DM_Campaings from "./pages/protected-pages/campaign-dm/campaign-dm.tsx";
+import { UserCampaigns } from "./pages/protected-pages/campaign-player/campaign-player.tsx";
+import CreateCampaign from "./pages/protected-pages/create-campaign/create-campaign-page.tsx";
+import HomePage from "./pages/protected-pages/home/home.tsx";
+import ViewCampaignDM from "./pages/protected-pages/view-campaign-dm/view-campaign-dm.tsx";
+import { CreateAccount } from "./pages/unprotected-pages/create-account.tsx";
+import Login from "./pages/unprotected-pages/login-page.tsx";
+import ViewCampaign from "./pages/protected-pages/view-campaign-player/view-campaign.tsx";
+import CreateCharacter from "./pages/protected-pages/view-campaign-player/subpages/create-character.tsx";
+import EditCharacter from "./pages/protected-pages/view-campaign-player/subpages/editCharacter.tsx";
 
 const router = createBrowserRouter([
   {

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { checkIfPlayerIsInCampaign } from "../../../auth/campaign.auth";
-import { queryClient } from "../../../lib/react-query";
+import { checkIfPlayerIsInCampaign } from "../../auth/campaign.auth";
+import { queryClient } from "../../lib/react-query";
 import { useParams } from "react-router-dom";
 import HomeLogOff from "./home-and-logoff";
 

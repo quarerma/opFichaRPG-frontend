@@ -2,9 +2,10 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import axios from "axios";
-import { BASE_URL } from "../../../env";
+
 import { useQueryClient } from "@tanstack/react-query";
-import { Campaign } from "../../../types/campaign.entity";
+import { BASE_URL } from "../../../../env";
+import { Campaign } from "../../../../types/campaign.entity";
 
 export const JoinCampaign = () => {
   const queryClient = useQueryClient();

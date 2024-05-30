@@ -1,10 +1,10 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { checkIfUserIsDM } from "../../auth/campaign.auth";
-import HomeLogOff from "./components/home-and-logoff";
-import { getAllCharactersFromCampaign } from "../../data/campaigns-data";
+import { checkIfUserIsDM } from "../../../auth/campaign.auth";
+import HomeLogOff from "../../global-components/home-and-logoff";
+import { getAllCharactersFromCampaign } from "../../../data/campaigns-data";
+import { Character } from "../../../types/character.entity";
 import CharacterPortraitDM from "./components/character-portrait-dm";
-import { Character } from "../../types/character.entity";
 
 function ViewCampaignDM() {
   const campaignId = useParams().id;

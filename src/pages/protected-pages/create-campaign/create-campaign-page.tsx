@@ -4,9 +4,9 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { BASE_URL } from "../../env";
+import { BASE_URL } from "../../../env";
 import { useState } from "react";
-import HomeLogOff from "./components/home-and-logoff";
+import HomeLogOff from "../../global-components/home-and-logoff";
 import { useNavigate } from "react-router-dom";
 
 const campaignFilterSchema = z.object({

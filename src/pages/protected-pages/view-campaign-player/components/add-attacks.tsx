@@ -3,10 +3,10 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { useForm } from "react-hook-form";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { z } from "zod";
-import { addAttack } from "../../../data/character-data";
+import { addAttack } from "../../../../data/character-data";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { Character } from "../../../types/character.entity";
+import { Character } from "../../../../types/character.entity";
 import { Toaster, toast } from "sonner";
 interface Props {
   characterId: string;

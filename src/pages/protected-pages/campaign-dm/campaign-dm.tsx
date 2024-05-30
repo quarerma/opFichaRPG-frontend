@@ -1,6 +1,6 @@
-import HomeLogOff from "./components/home-and-logoff";
+import HomeLogOff from "../../global-components/home-and-logoff";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getCampaignsAsGameMasterData } from "../../data/campaigns-data";
+import { getCampaignsAsGameMasterData } from "../../../data/campaigns-data";
 import { CreateCampaignComponent } from "./components/create-campaign-component";
 import { useEffect } from "react";
 import { Toaster, toast } from "sonner";

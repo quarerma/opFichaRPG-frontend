@@ -2,11 +2,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { z } from "zod";
-import { createCharacter } from "../../data/character-data";
 import { useEffect, useState } from "react";
-import HomeLogOff from "./components/home-and-logoff";
-import { getPlayerCharacter } from "../../data/campaigns-data";
 import { useQueryClient } from "@tanstack/react-query";
+import { getPlayerCharacter } from "../../../../data/campaigns-data";
+import { createCharacter } from "../../../../data/character-data";
+import HomeLogOff from "../../../global-components/home-and-logoff";
 
 const createCharacterSchema = z.object({
   name: z.string().max(255),

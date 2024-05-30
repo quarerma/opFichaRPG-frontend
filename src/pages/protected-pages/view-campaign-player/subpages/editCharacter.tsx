@@ -1,12 +1,12 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
-import { getPlayerCharacter } from "../../data/campaigns-data";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { updateCharacter } from "../../data/character-data";
-import { Character } from "../../types/character.entity";
 import { Toaster, toast } from "sonner";
+import { getPlayerCharacter } from "../../../../data/campaigns-data";
+import { updateCharacter } from "../../../../data/character-data";
+import { Character } from "../../../../types/character.entity";
 
 const updateCharacterSchema = z.object({
   name: z.string().max(255),

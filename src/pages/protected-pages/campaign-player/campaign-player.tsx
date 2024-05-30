@@ -1,9 +1,10 @@
-import HomeLogOff from "./components/home-and-logoff";
+import HomeLogOff from "../../global-components/home-and-logoff";
 import CampaignViewPortrait from "./components/campaign-view";
-import { JoinCampaign } from "./components/join-campaign";
+
 import { useQuery } from "@tanstack/react-query";
-import { getCampaignsAsPlayerData } from "../../data/campaigns-data";
-import { queryClient } from "../../lib/react-query";
+import { getCampaignsAsPlayerData } from "../../../data/campaigns-data";
+import { queryClient } from "../../../lib/react-query";
+import JoinCampaign from "./components/join-campaign";
 
 export const UserCampaigns = () => {
   const { data: userCampaigns } = useQuery({

@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { checkIfUserIsDM } from "../../auth/campaign.auth";
-import ViewCampaignAsPlayer from "./components/view-campaign-player";
+import ViewCampaignAsPlayer from "./view-campaign-player";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import ValidatePlayer from "./components/wrap-validate-player";
+import { checkIfUserIsDM } from "../../../auth/campaign.auth";
+import ValidatePlayer from "../../global-components/wrap-validate-player";
 
 function ViewCampaign() {
   const campaignId = useParams().id;
