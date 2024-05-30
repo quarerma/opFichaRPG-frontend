@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { checkIfUserIsDM } from "../../auth/campaign.auth";
 import ViewCampaignAsPlayer from "./components/view-campaign-player";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import ValidatePlayer from "./components/wrap-validate-player";
 
 function ViewCampaign() {
   const campaignId = useParams().id;
@@ -24,7 +25,9 @@ function ViewCampaign() {
   if (isDm) navigate(`/campanhas/mestre/${campaignId}`);
   return (
     <div>
-      <ViewCampaignAsPlayer />
+      <ValidatePlayer>
+        <ViewCampaignAsPlayer />
+      </ValidatePlayer>
     </div>
   );
 }
