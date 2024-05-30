@@ -20,6 +20,7 @@ import ViewCampaign from "./pages/protected-pages/view-campaign.tsx";
 import CreateCharacter from "./pages/protected-pages/create-character.tsx";
 import ViewCampaignDM from "./pages/protected-pages/view-campaign-dm.tsx";
 import EditCharacter from "./pages/protected-pages/editCharacter.tsx";
+import ValidatePlayer from "./pages/protected-pages/components/wrap-validate-player.tsx";
 
 const router = createBrowserRouter([
   {
@@ -63,7 +64,9 @@ const router = createBrowserRouter([
     element: (
       <QueryClientProvider client={queryClient}>
         <Protected>
-          <CreateCharacter />
+          <ValidatePlayer>
+            <CreateCharacter />
+          </ValidatePlayer>
         </Protected>
       </QueryClientProvider>
     ),
@@ -115,7 +118,9 @@ const router = createBrowserRouter([
     element: (
       <QueryClientProvider client={queryClient}>
         <Protected>
-          <EditCharacter />
+          <ValidatePlayer>
+            <EditCharacter />
+          </ValidatePlayer>
         </Protected>
       </QueryClientProvider>
     ),
