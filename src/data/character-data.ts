@@ -1,9 +1,9 @@
 import axios from "axios";
 import { BASE_URL } from "../env";
-import { CreateCharacterSchema } from "../pages/protected-pages/create-character";
 import { Attacks, Character } from "../types/character.entity";
 import { v4 as uuidv4 } from "uuid";
-import { UpdateCharacterSchema } from "../pages/protected-pages/editCharacter";
+import { CreateCharacterSchema } from "../pages/protected-pages/view-campaign-player/subpages/create-character";
+import { UpdateCharacterSchema } from "../pages/protected-pages/view-campaign-player/subpages/editCharacter";
 
 const token: string | null = localStorage.getItem("jwt");
 
