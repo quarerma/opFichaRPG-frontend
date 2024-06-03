@@ -30,6 +30,7 @@ export const CreateSkill = () => {
   async function handleGetSkills() {
     const response = await axios.get(`${BASE_URL}skills/getSkills`);
     setSkills(response.data);
+    console.log(response.data);
   }
 
   return (
@@ -44,7 +45,10 @@ export const CreateSkill = () => {
         </label>
         <label className="flex flex-col w-full h-full items-center">
           Descrição
-          <textarea {...register("description")} className="w-[50%] h-full" />
+          <textarea
+            {...register("description")}
+            className="w-[50%] h-full p-2"
+          />
         </label>
         <label className="flex flex-col w-full items-center">
           Apenas treinados
@@ -70,7 +74,8 @@ export const CreateSkill = () => {
         {skills && skills.length > 0 ? (
           skills.map((skill) => (
             <div key={skill.name}>
-              <h1>{skill.name}</h1>
+              <h1 className="text-2xl font-extrabold">{skill.name}</h1>
+
               <p>
                 {skill.description.split("\n").map((line, index) => (
                   <span key={index}>
@@ -79,6 +84,7 @@ export const CreateSkill = () => {
                   </span>
                 ))}
               </p>
+              <br />
             </div>
           ))
         ) : (
