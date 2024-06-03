@@ -21,6 +21,7 @@ import Login from "./pages/unprotected-pages/login-page.tsx";
 import ViewCampaign from "./pages/protected-pages/view-campaign-player/view-campaign.tsx";
 import CreateCharacter from "./pages/protected-pages/view-campaign-player/subpages/create-character.tsx";
 import EditCharacter from "./pages/protected-pages/view-campaign-player/subpages/editCharacter.tsx";
+import CreateSkill from "./pages/protected-pages/create-skill/create-skill.tsx";
 
 const router = createBrowserRouter([
   {
@@ -121,6 +122,16 @@ const router = createBrowserRouter([
           <ValidatePlayer>
             <EditCharacter />
           </ValidatePlayer>
+        </Protected>
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: "createSkill",
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <Protected>
+          <CreateSkill />
         </Protected>
       </QueryClientProvider>
     ),
