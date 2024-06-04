@@ -3,6 +3,7 @@ import { Skill } from "../../../../types/skill.entity";
 import { FaDiceD20 } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
+import { ShowSkillDetailed } from "./show-full-skill";
 
 interface SkillProps {
   skills: Skill[];
@@ -47,6 +48,10 @@ const getSpecializationLabel = (specialization: string) => {
 
 export const SkillsView = ({ skills, dex, int, pre, str, vig }: SkillProps) => {
   const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
+  const [selectedDetailedSkill, setSelectedDetailedSkill] =
+    useState<Skill | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [isOpen, setOpen] = useState(false);
   const [rolls, setRolls] = useState<number[]>([]);
   const [showRolls, setShowRolls] = useState(false);
@@ -116,9 +121,11 @@ export const SkillsView = ({ skills, dex, int, pre, str, vig }: SkillProps) => {
             {skills.map((skill, index) => (
               <tr
                 key={index}
+                title="Clique para ver detalhes"
                 className="hover:bg-gray-600 rounded-lg cursor-pointer"
                 onClick={() => {
-                  console.log("clicked");
+                  setSelectedDetailedSkill(skill);
+                  setIsModalOpen(true);
                 }}
               >
                 <td className="px-2">
@@ -128,19 +135,24 @@ export const SkillsView = ({ skills, dex, int, pre, str, vig }: SkillProps) => {
                   {getSpecializationLabel(skill.specialization)}
                 </td>
                 <td className="px-2">{skill.numberModifier}</td>
-                <td>
-                  <Dialog.Trigger
-                    className="px-2"
-                    onClick={() => {
-                      setSelectedSkill(skill);
-                    }}
-                  >
-                    <FaDiceD20 />
-                  </Dialog.Trigger>
-                </td>
+                <td></td>
+                <Dialog.Trigger
+                  className="px-2"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedSkill(skill);
+                  }}
+                >
+                  <FaDiceD20 />
+                </Dialog.Trigger>
               </tr>
             ))}
           </tbody>
+          <ShowSkillDetailed
+            name={selectedDetailedSkill?.name || ""}
+            isOpen={isModalOpen}
+            onRequestClose={() => setIsModalOpen(false)}
+          />
         </table>
       </div>
 

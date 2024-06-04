@@ -106,7 +106,7 @@ function ViewCampaignAsPlayer() {
                   />
                   <button
                     onClick={handleAddTemporaryHitPoints}
-                    className="rounded-full bg-green-500  w-5 h-5 text-1xl z-10 flex items-center justify-center"
+                    className="rounded-full bg-green-500  w-5 h-5 text-1xl  flex items-center justify-center"
                   >
                     +
                   </button>

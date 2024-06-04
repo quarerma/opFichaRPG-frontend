@@ -5,10 +5,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Toaster, toast } from "sonner";
 import { getPlayerCharacter } from "../../../../data/campaigns-data";
-import { updateCharacter } from "../../../../data/character-data";
 import { Character } from "../../../../types/character.entity";
-import { EditSkills } from "./edit-skills";
+import { EditSkills } from "../components/edit-skills";
 import { useState } from "react";
+import { updateCharacter } from "../services/update-service";
 
 const updateCharacterSchema = z.object({
   name: z.string().max(255),

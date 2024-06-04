@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
 import { Character } from "../../../../types/character.entity";
-import { updateCharacterSkills } from "../../../../data/character-data";
 import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { Skill } from "../../../../types/skill.entity";
+import { updateCharacterSkills } from "../services/skill-service";
 
 interface EditSkillsProps {
   character: Character;

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Character } from "../../../../types/character.entity";
-import { updateStats } from "../../../../data/character-data";
+import { updateStats } from "../services/update-service";
 
 interface UpdateStatsProps {
   statsType: string;
@@ -105,7 +105,7 @@ function UpdateStats({ statsType, character }: UpdateStatsProps) {
     >
       <button
         onClick={() => setPositive(false)}
-        className="rounded-full bg-red-500 w-5 h-5 z-10 text-1xl flex items-center justify-center"
+        className="rounded-full bg-red-500 w-5 h-5 text-1xl flex items-center justify-center"
       >
         <span className="block">-</span>
       </button>
@@ -125,7 +125,7 @@ function UpdateStats({ statsType, character }: UpdateStatsProps) {
 
       <button
         onClick={() => setPositive(true)}
-        className="rounded-full bg-green-500 w-5 h-5 text-1xl z-10 flex items-center justify-center"
+        className="rounded-full bg-green-500 w-5 h-5 text-1xl  flex items-center justify-center"
       >
         +
       </button>

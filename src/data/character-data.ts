@@ -3,7 +3,6 @@ import { BASE_URL } from "../env";
 import { Attacks, Character } from "../types/character.entity";
 import { v4 as uuidv4 } from "uuid";
 import { CreateCharacterSchema } from "../pages/protected-pages/view-campaign-player/subpages/create-character";
-import { UpdateCharacterSchema } from "../pages/protected-pages/view-campaign-player/subpages/editCharacter";
 
 const token: string | null = localStorage.getItem("jwt");
 
@@ -42,73 +41,6 @@ export async function addAttack(attack: Attacks, characterId: string) {
     await axios.patch(
       `${BASE_URL}characters/addAttack/${characterId}`,
       attack,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-  } catch (e) {
-    console.log("erro");
-  }
-}
-
-export async function updateStats(
-  characterId: string,
-  value: string,
-  stat: string
-) {
-  let patchURL;
-  if (stat === "SanityPoints")
-    patchURL = `${BASE_URL}characters/updateSanityPoints`;
-  if (stat === "HitPoints") patchURL = `${BASE_URL}characters/updateHitPoints`;
-  if (stat === "EffortPoints")
-    patchURL = `${BASE_URL}characters/updateEffortPoints`;
-
-  console.log(typeof value);
-  try {
-    await axios.get(
-      `${patchURL}/${value}/${characterId}`, // A ordem dos parâmetros deve ser mantida como você tinha inicialmente
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-  } catch (e) {
-    throw new Error("Erro ao atualizar stats");
-  }
-}
-export async function updateCharacter(
-  characterData: UpdateCharacterSchema,
-  characterId?: string
-) {
-  try {
-    return await axios.patch(
-      `${BASE_URL}characters/updateCharacter/${characterId}`,
-      characterData,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-  } catch (e) {
-    console.log("erro");
-  }
-}
-
-export async function updateCharacterSkills(
-  skills: string[],
-  characterId: string
-) {
-  try {
-    return await axios.patch(
-      `${BASE_URL}characters/updateCharacterSkilss/${characterId}`,
-      skills,
       {
         headers: {
           "Content-Type": "application/json",
