@@ -100,3 +100,23 @@ export async function updateCharacter(
     console.log("erro");
   }
 }
+
+export async function updateCharacterSkills(
+  skills: string[],
+  characterId: string
+) {
+  try {
+    return await axios.patch(
+      `${BASE_URL}characters/updateCharacterSkilss/${characterId}`,
+      skills,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (e) {
+    console.log("erro");
+  }
+}

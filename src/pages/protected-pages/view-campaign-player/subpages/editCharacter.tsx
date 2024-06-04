@@ -7,6 +7,7 @@ import { Toaster, toast } from "sonner";
 import { getPlayerCharacter } from "../../../../data/campaigns-data";
 import { updateCharacter } from "../../../../data/character-data";
 import { Character } from "../../../../types/character.entity";
+import { EditSkills } from "./edit-skills";
 
 const updateCharacterSchema = z.object({
   name: z.string().max(255),
@@ -48,121 +49,136 @@ export const EditCharacter = () => {
           return updatedChar?.data;
         }
       );
-      queryClient.invalidateQueries({ queryKey: ["playerCharacter"] });
+      const updatedCharData = await getPlayerCharacter(queryClient, campaignId);
+      console.log("personagem atualizado");
+      console.log(updatedCharData);
+      // queryClient.invalidateQueries({ queryKey: ["playerCharacter"] });
       toast.success("Personagem atualizado com sucesso");
-
-      console.log("Personagem atualizado com sucesso!");
     } catch (error) {
       console.error("Erro ao atualizar personagem:", error);
     }
   }
 
   return character ? (
-    <div className="min-w-screen min-h-screen bg-red-bordo text-white font-oswald text-2xl flex flex-col gap-y-2 justify-center items-center">
+    <div className="min-w-screen min-h-screen bg-red-bordo text-white font-oswald text-2xl flex  gap-y-2 ">
       <form
         className="text-center"
         onSubmit={handleSubmit(handleUpdateCharacter)}
       >
         <div className="max-md:flex-col max-md:gap-y-5 flex w-fit mt-10 ml-10 rounded-lg gap-x-5 text-start">
-          <div className="w-[280px] bg-login-gray p-5 rounded-lg relative">
-            <div className="w-full flex-col space-y-2">
-              <div className="flex-col">
-                <h1 className="text-center">Nome:</h1>
+          <div className="flex-col w-full h-fit items-center">
+            <div className="flex gap-x-5">
+              {/* Edit Char Info */}
+              <div className="w-[280px] bg-login-gray p-5 rounded-lg h-fit relative">
+                <div className="w-full flex-col space-y-2">
+                  <div className="flex-col">
+                    <h1 className="text-center">Nome:</h1>
+                    <input
+                      defaultValue={character.name}
+                      {...register("name")}
+                      className="w-full p-1 rounded-md text-black"
+                    />
+                  </div>
+                  <h1 className="text-center">Classe:</h1>
+                  <input
+                    defaultValue={character.className}
+                    {...register("className")}
+                    className="w-full p-1 rounded-md text-black"
+                  />
+                  <h1 className="text-center">Subclasse:</h1>
+                  <input
+                    defaultValue={character.subClassName}
+                    {...register("subClassName")}
+                    className="w-full p-1 rounded-md text-black"
+                  />
+                  <h1 className="text-center">Nível:</h1>
+                  <input
+                    defaultValue={character.level}
+                    {...register("level")}
+                    className="w-full p-1 rounded-md text-black"
+                  />
+                </div>
+              </div>
+
+              {/* Edit Atributes */}
+              <div className="bg-login-gray p-5 w-[280px] rounded-lg h-fit">
+                <h1 className="text-center">Força:</h1>
                 <input
-                  defaultValue={character.name}
-                  {...register("name")}
+                  defaultValue={character.strength}
+                  {...register("strength")}
+                  className="w-full p-1 rounded-md text-black"
+                />
+                <h1 className="text-center">Destreza:</h1>
+                <input
+                  defaultValue={character.dexterity}
+                  {...register("dexterity")}
+                  className="w-full p-1 rounded-md text-black"
+                />
+                <h1 className="text-center">Vitalidade:</h1>
+                <input
+                  defaultValue={character.vitality}
+                  {...register("vitality")}
+                  className="w-full p-1 rounded-md text-black"
+                />
+                <h1 className="text-center">Inteligência:</h1>
+                <input
+                  defaultValue={character.intelligence}
+                  {...register("intelligence")}
+                  className="w-full p-1 rounded-md text-black"
+                />
+                <h1 className="text-center">Presença:</h1>
+                <input
+                  defaultValue={character.presence}
+                  {...register("presence")}
                   className="w-full p-1 rounded-md text-black"
                 />
               </div>
-              <h1 className="text-center">Classe:</h1>
-              <input
-                defaultValue={character.className}
-                {...register("className")}
-                className="w-full p-1 rounded-md text-black"
-              />
-              <h1 className="text-center">Subclasse:</h1>
-              <input
-                defaultValue={character.subClassName}
-                {...register("subClassName")}
-                className="w-full p-1 rounded-md text-black"
-              />
-              <h1 className="text-center">Nível:</h1>
-              <input
-                defaultValue={character.level}
-                {...register("level")}
-                className="w-full p-1 rounded-md text-black"
-              />
+
+              {/* Edit Stats */}
+              <div className="bg-login-gray p-5 w-[280px] rounded-lg flex-col h-fit">
+                <div className="flex-col space-y-2">
+                  <h1 className="text-center">Vida Máxima:</h1>
+                  <input
+                    defaultValue={character.maxHitPoints}
+                    {...register("maxHitPoints")}
+                    className="w-full p-1 rounded-md text-black"
+                  />
+                </div>
+                <div className="flex-col space-y-2">
+                  <h1 className="text-center">Sanidade Máxima:</h1>
+                  <input
+                    defaultValue={character.maxSanityPoints}
+                    {...register("maxSanityPoints")}
+                    className="w-full p-1 rounded-md text-black"
+                  />
+                </div>
+                <div className="flex-col space-y-2">
+                  <h1 className="text-center">PE Máximo:</h1>
+                  <input
+                    defaultValue={character.maxEffortPoints}
+                    {...register("maxEffortPoints")}
+                    className="w-full p-1 rounded-md text-black"
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="bg-login-gray p-5 w-[280px] rounded-lg">
-            <h1 className="text-center">Força:</h1>
-            <input
-              defaultValue={character.strength}
-              {...register("strength")}
-              className="w-full p-1 rounded-md text-black"
-            />
-            <h1 className="text-center">Destreza:</h1>
-            <input
-              defaultValue={character.dexterity}
-              {...register("dexterity")}
-              className="w-full p-1 rounded-md text-black"
-            />
-            <h1 className="text-center">Vitalidade:</h1>
-            <input
-              defaultValue={character.vitality}
-              {...register("vitality")}
-              className="w-full p-1 rounded-md text-black"
-            />
-            <h1 className="text-center">Inteligência:</h1>
-            <input
-              defaultValue={character.intelligence}
-              {...register("intelligence")}
-              className="w-full p-1 rounded-md text-black"
-            />
-            <h1 className="text-center">Presença:</h1>
-            <input
-              defaultValue={character.presence}
-              {...register("presence")}
-              className="w-full p-1 rounded-md text-black"
-            />
-          </div>
-          <div className="bg-login-gray p-5 w-[280px] rounded-lg flex-col space-y-">
-            <div className="flex-col space-y-2">
-              <h1 className="text-center">Vida Máxima:</h1>
-              <input
-                defaultValue={character.maxHitPoints}
-                {...register("maxHitPoints")}
-                className="w-full p-1 rounded-md text-black"
-              />
-            </div>
-            <div className="flex-col space-y-2">
-              <h1 className="text-center">Sanidade Máxima:</h1>
-              <input
-                defaultValue={character.maxSanityPoints}
-                {...register("maxSanityPoints")}
-                className="w-full p-1 rounded-md text-black"
-              />
-            </div>
-            <div className="flex-col space-y-2">
-              <h1 className="text-center">PE Máximo:</h1>
-              <input
-                defaultValue={character.maxEffortPoints}
-                {...register("maxEffortPoints")}
-                className="w-full p-1 rounded-md text-black"
-              />
-            </div>
+            <button type="submit" className="mt-5 p-2 bg-blue-600 rounded-md">
+              <h1>Atualizar</h1>
+            </button>
           </div>
         </div>
-        <button type="submit" className="mt-5 p-2 bg-blue-600 rounded-md">
-          <h1>Atualizar</h1>
+
+        <button
+          className="py-10 hover:scale-110"
+          onClick={() => navigate(`/campanhas/view/${campaignId}`)}
+        >
+          Voltar
         </button>
       </form>
-      <button
-        className="py-10 hover:scale-110"
-        onClick={() => navigate(`/campanhas/view/${campaignId}`)}
-      >
-        Voltar
-      </button>
+      {/* Edit Skills */}
+      <div className="p-10">
+        <EditSkills character={character} />
+      </div>
       <Toaster />
     </div>
   ) : (

@@ -1,3 +1,5 @@
+import { Skill } from "./skill.entity";
+
 export type Character = {
   id: string;
   campaignId: string;
@@ -18,6 +20,7 @@ export type Character = {
   intelligence: number;
   presence: number;
   attacks: Attacks[];
+  skills: Skill[];
 };
 
 export type Attacks = {
