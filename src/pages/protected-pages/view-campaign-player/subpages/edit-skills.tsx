@@ -9,13 +9,15 @@ import { Skill } from "../../../../types/skill.entity";
 interface EditSkillsProps {
   character: Character;
 }
-
+interface FormData {
+  skills: Skill[];
+}
 export const EditSkills = ({ character }: EditSkillsProps) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<FormData>();
   const queryClient = useQueryClient();
   const { id: campaignId } = useParams();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: FormData) => {
     const updatedSkills = data.skills.map((updatedSkill, index) => {
       return {
         ...character.skills[index],
@@ -52,7 +54,7 @@ export const EditSkills = ({ character }: EditSkillsProps) => {
     }
   }
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleSubmit(onSubmit)(event);
   };
@@ -74,7 +76,7 @@ export const EditSkills = ({ character }: EditSkillsProps) => {
                 <td className="text-white">{skill.name}</td>
                 <td className="px-2 w-fit">
                   <input
-                    {...register(`skills[${index}].numberModifier`)}
+                    {...register(`skills.${index}.numberModifier`)}
                     defaultValue={skill.numberModifier}
                     type="number"
                     className="border-2 border-gray-200 p-1"
@@ -82,7 +84,7 @@ export const EditSkills = ({ character }: EditSkillsProps) => {
                 </td>
                 <td className="px-2">
                   <select
-                    {...register(`skills[${index}].specialization`)}
+                    {...register(`skills.${index}.specialization`)}
                     defaultValue={skill.specialization}
                     className="border-2 border-gray-200 text-center  text-black"
                   >
