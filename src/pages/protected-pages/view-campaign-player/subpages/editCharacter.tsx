@@ -8,6 +8,7 @@ import { getPlayerCharacter } from "../../../../data/campaigns-data";
 import { updateCharacter } from "../../../../data/character-data";
 import { Character } from "../../../../types/character.entity";
 import { EditSkills } from "./edit-skills";
+import { useState } from "react";
 
 const updateCharacterSchema = z.object({
   name: z.string().max(255),
@@ -26,6 +27,8 @@ const updateCharacterSchema = z.object({
 
 export type UpdateCharacterSchema = z.infer<typeof updateCharacterSchema>;
 export const EditCharacter = () => {
+  const [showTooltip, setShowTooltip] = useState(false);
+
   const { id: campaignId } = useParams();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -62,7 +65,7 @@ export const EditCharacter = () => {
   return character ? (
     <div className="min-w-screen min-h-screen bg-red-bordo text-white font-oswald text-2xl flex  gap-y-2 ">
       <form
-        className="text-center"
+        className="text-center items-center justify-center"
         onSubmit={handleSubmit(handleUpdateCharacter)}
       >
         <div className="max-md:flex-col max-md:gap-y-5 flex w-fit mt-10 ml-10 rounded-lg gap-x-5 text-start">
@@ -162,18 +165,32 @@ export const EditCharacter = () => {
                 </div>
               </div>
             </div>
-            <button type="submit" className="mt-5 p-2 bg-blue-600 rounded-md">
-              <h1>Atualizar</h1>
-            </button>
+            <div className="w-full flex justify-center ">
+              <div className="flex flex-col ">
+                <button
+                  onMouseEnter={() => setShowTooltip(true)}
+                  onMouseLeave={() => setShowTooltip(false)}
+                  title="*Atualiza apenas os campos acima"
+                  type="submit"
+                  className="mt-5 p-2 bg-blue-600 rounded-md hover:scale-110 duration-500"
+                >
+                  <h1>Atualizar</h1>
+                </button>
+                {showTooltip && (
+                  <div className="p-2 mt-2  text-[1.0rem] rounded-md">
+                    * Atualiza apenas os campos acima!
+                  </div>
+                )}
+                <button
+                  className="py-10 hover:scale-110 duration-700"
+                  onClick={() => navigate(`/campanhas/view/${campaignId}`)}
+                >
+                  Voltar
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-
-        <button
-          className="py-10 hover:scale-110"
-          onClick={() => navigate(`/campanhas/view/${campaignId}`)}
-        >
-          Voltar
-        </button>
       </form>
       {/* Edit Skills */}
       <div className="p-10">
