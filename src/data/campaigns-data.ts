@@ -76,7 +76,6 @@ export async function getPlayerCharacter(
     "playerCharacter",
     campaignId,
   ]);
-  console.log("em cache", cachedData);
   if (cachedData) {
     return cachedData;
   }
