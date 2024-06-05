@@ -47,17 +47,24 @@ export const ShowSkillDetailed = ({
       }}
     >
       <h1 className="text-3xl underline font-oswald">{skill?.name}</h1>
-      <div className="py-4 text-[1.4rem]">
-        <p>
-          {skill?.description.split("\n").map((line, index) => (
-            <span key={index}>
-              {line}
-              <br />
-            </span>
-          ))}
-        </p>
-        <br />
+
+      <div className="flex-col text-gray-800 text-[0.9rem] font-oswald mb-2">
+        {skill?.only_trained && <p>Apenas treinados </p>}
+        {skill?.carry_peanalty && <p>Penalidade de carga </p>}
+        {skill?.needs_kit && <p>Necessita de kit </p>}
       </div>
+      <p>
+        {skill?.description.split("\n").map((line, index) => {
+          const lineWithBold = line.replace(/{(.*?)}/g, "<strong>$1</strong>");
+          return (
+            <span
+              key={index}
+              className="text-[1.3rem] block mb-5 leading-7"
+              dangerouslySetInnerHTML={{ __html: lineWithBold }}
+            />
+          );
+        })}
+      </p>
     </Modal>
   );
 };

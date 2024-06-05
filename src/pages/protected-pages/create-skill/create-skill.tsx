@@ -1,98 +1,114 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { BASE_URL } from "../../../env";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { SkillDetail } from "../../../types/skill.entity";
 
-const createSkillSchema = z.object({
-  name: z.string(),
-  description: z.string(),
-  only_trained: z.boolean(),
-  carry_peanalty: z.boolean(),
-  needs_kit: z.boolean(),
-  is_custom: z.boolean(),
-});
-
-type CreateSkillSchema = z.infer<typeof createSkillSchema>;
-
-export const CreateSkill = () => {
-  const [skills, setSkills] = useState<CreateSkillSchema[] | null>(null);
-
-  const { register, handleSubmit } = useForm<CreateSkillSchema>({
-    resolver: zodResolver(createSkillSchema),
-  });
-
-  async function handleCreateSkill(data: CreateSkillSchema) {
-    await axios.post(`${BASE_URL}skills/create`, data);
-  }
+export const EditSkill = () => {
+  const [skills, setSkills] = useState<SkillDetail[] | null>(null);
+  const [selectedSkill, setSelectedSkill] = useState<SkillDetail | null>(null);
+  const [description, setDescription] = useState<string>("");
 
   async function handleGetSkills() {
     const response = await axios.get(`${BASE_URL}skills/getSkills`);
     setSkills(response.data);
-    console.log(response.data);
   }
 
-  return (
-    <>
-      <form
-        onSubmit={handleSubmit(handleCreateSkill)}
-        className="flex flex-col bg-gray-50 items-center w-screen h-screen space-y-10"
-      >
-        <label className="flex flex-col w-full items-center">
-          Nome
-          <input {...register("name")} type="text" />
-        </label>
-        <label className="flex flex-col w-full h-full items-center">
-          Descrição
-          <textarea
-            {...register("description")}
-            className="w-[50%] h-full p-2"
-          />
-        </label>
-        <label className="flex flex-col w-full items-center">
-          Apenas treinados
-          <input {...register("only_trained")} type="checkbox" />
-        </label>
-        <label className="flex flex-col w-full items-center">
-          Penalidade de carga
-          <input {...register("carry_peanalty")} type="checkbox" />
-        </label>
-        <label className="flex flex-col w-full items-center">
-          Necessita kit
-          <input {...register("needs_kit")} type="checkbox" />
-        </label>
-        <label className="flex flex-col w-full items-center">
-          Personalizada
-          <input {...register("is_custom")} type="checkbox" />
-        </label>
-        <button type="submit">Criar</button>
-      </form>
+  function handleSkillChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    const skill =
+      skills?.find((skill) => skill.name === e.target.value) || null;
+    setSelectedSkill(skill);
+  }
 
-      <button onClick={handleGetSkills}>Buscar</button>
+  function handleSaveSkill() {
+    // implementar
+
+    console.log(description);
+    if (!description) return;
+
+    axios.patch(`${BASE_URL}skills/updateDescription/${selectedSkill?.name}`, {
+      description,
+    });
+  }
+
+  useEffect(() => {
+    if (selectedSkill) {
+      setDescription(selectedSkill.description);
+    }
+  }, [selectedSkill]);
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Editar habilidades</h1>
+      <label
+        htmlFor="skill"
+        className="block text-sm font-medium text-gray-700"
+      >
+        Habilidade
+      </label>
+      <select
+        name="skill"
+        id="skill"
+        className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        onChange={handleSkillChange}
+      >
+        {skills &&
+          skills.map((skill) => (
+            <option key={skill.name} value={skill.name}>
+              {skill.name}
+            </option>
+          ))}
+      </select>
+      <label
+        htmlFor="description"
+        className="block text-sm font-medium text-gray-700 mt-4"
+      >
+        Descrição
+      </label>
+      <textarea
+        name="description"
+        id="description"
+        className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      ></textarea>
+      <button
+        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
+        onClick={handleSaveSkill}
+      >
+        Salvar
+      </button>
+      <br />
+      <button
+        onClick={handleGetSkills}
+        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
+      >
+        Buscar
+      </button>
       <div>
         {skills && skills.length > 0 ? (
           skills.map((skill) => (
             <div key={skill.name}>
               <h1 className="text-2xl font-extrabold">{skill.name}</h1>
-
               <p>
-                {skill.description.split("\n").map((line, index) => (
-                  <span key={index}>
-                    {line}
-                    <br />
-                  </span>
-                ))}
+                {skill?.description.split("\n").map((line, index) => {
+                  const lineWithBold = line.replace(
+                    /{(.*?)}/g,
+                    "<strong>$1</strong>"
+                  );
+                  return (
+                    <span
+                      key={index}
+                      className="text-[1.3rem] block mb-5 leading-7"
+                      dangerouslySetInnerHTML={{ __html: lineWithBold }}
+                    />
+                  );
+                })}
               </p>
-              <br />
             </div>
           ))
         ) : (
-          <p>Nenhuma habilidade encontrada.</p>
+          <p>Nenhuma habilidade encontrada</p>
         )}
       </div>
-    </>
+    </div>
   );
 };
-
-export default CreateSkill;
