@@ -34,7 +34,7 @@ const getAttributeLabel = (attribute: string) => {
 const getSpecializationLabel = (specialization: string) => {
   switch (specialization) {
     case "NONE":
-      return "Nenhuma";
+      return "-";
     case "TRAINED":
       return "Treinado";
     case "EXPERT":
@@ -134,8 +134,13 @@ export const SkillsView = ({ skills, dex, int, pre, str, vig }: SkillProps) => {
                 <td className="px-2">
                   {getSpecializationLabel(skill.specialization)}
                 </td>
-                <td className="px-2">{skill.numberModifier}</td>
-                <td></td>
+                {skill.numberModifier > 0 ? (
+                  <td className="px-2 text-green-500">
+                    +{skill.numberModifier}
+                  </td>
+                ) : (
+                  <td className="px-2 text-green-500">-</td>
+                )}
                 <Dialog.Trigger
                   className="px-2"
                   onClick={(e) => {
@@ -157,8 +162,8 @@ export const SkillsView = ({ skills, dex, int, pre, str, vig }: SkillProps) => {
       </div>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed z-40 inset-0 bg-black/70" />
-        <Dialog.Content className="border-1 z-50 min-w-[250px] bg-login-gray rounded-md p-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-oswald flex flex-col items-center justify-center">
+        <Dialog.Overlay className="fixed inset-0 bg-black/70" />
+        <Dialog.Content className="border-1 z-50 min-w-[250px] bg-login-gray rounded-md p-5 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-oswald flex flex-col items-center justify-center">
           <Dialog.Close className="top-2 right-2 absolute z-50 hover:scale-125">
             <IoMdCloseCircleOutline className="text-3xl" />
           </Dialog.Close>
@@ -171,7 +176,11 @@ export const SkillsView = ({ skills, dex, int, pre, str, vig }: SkillProps) => {
             </div>
           </div>
           <button className="mt-5">
-            <FaDiceD20 className="text-4xl" onClick={rollDie} />
+            <FaDiceD20
+              className="text-4xl"
+              onClick={rollDie}
+              title="Rolar Dados"
+            />
           </button>
           {selectedSkill && (
             <span className="text-gray-400 mt-2">

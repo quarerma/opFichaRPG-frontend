@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Modal from "react-modal";
 import { getSkillData } from "../services/skill-service";
@@ -18,6 +19,18 @@ export const ShowSkillDetailed = ({
     queryKey: ["skill", name],
     queryFn: () => getSkillData(queryClient, name),
   });
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
 
   return (
     <Modal

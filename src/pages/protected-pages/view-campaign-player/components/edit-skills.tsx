@@ -89,7 +89,7 @@ export const EditSkills = ({ character }: EditSkillsProps) => {
                     className="border-2 border-gray-200 text-center  text-black"
                   >
                     <option value="NONE" className="bg-gray-400">
-                      Nenhum
+                      -
                     </option>
                     <option value="TRAINED" className="bg-gray-400">
                       Treinado
