@@ -17,8 +17,8 @@ export const CampaignsPage = () => {
   );
 
   return campaigns ? (
-    <div className="bg-red-bordo min-h-full text-white-text font-oswald text-[1.7rem]">
-      <div className="px-20 gap-y-10 flex flex-col py-10">
+    <div className="bg-red-bordo min-h-full text-white-text font-oswald text-[1.5rem]">
+      <div className="pl-20 gap-y-10 flex flex-col py-10">
         <div className="grid grid-cols-3 items-center justify-center">
           <div className="flex w-full">
             <div className="w-full flex-col">
@@ -34,17 +34,17 @@ export const CampaignsPage = () => {
             <FaSearch />
           </div>
           <div className="text-center ">
-            <span className="bg-black p-1 rounded-2xl border-2 border-border-red hover:border-border-red-hover hover:text-[1.75rem] duration-300 drop-shadow-lg ">
+            <span className="bg-black p-1 rounded-2xl border-2 border-border-red hover:border-border-red-hover hover:text-[1.55rem] duration-300 drop-shadow-lg ">
               Participar de uma Campanha
             </span>
           </div>
           <div className="text-center">
-            <span className="bg-black p-1 rounded-2xl border-2 border-border-red hover:border-border-red-hover hover:text-[1.75rem] duration-300 drop-shadow-md">
+            <span className="bg-black p-1 rounded-2xl border-2 border-border-red hover:border-border-red-hover hover:text-[1.55rem] duration-300 drop-shadow-md">
               Criar Campanha
             </span>
           </div>
         </div>
-        <h1 className="underline">Campanhas:</h1>
+        <h1 className="underline text-[1.45rem]">Campanhas:</h1>
         <div className="grid lg:grid-cols-4 md:grid-cols-3 gap-20 ">
           {filteredCampaigns && filteredCampaigns.length > 0 ? (
             filteredCampaigns.map((campaign) => (
