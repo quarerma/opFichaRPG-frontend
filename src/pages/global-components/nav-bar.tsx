@@ -41,7 +41,7 @@ export const NavBar: React.FC<NavBarProps> = ({ children }) => {
             <div className="hover:scale-105 duration-300 rounded-full h-16 w-16 flex items-center justify-center border-2 border-border-red bg-login-gray"></div>
           </div>
         </div>
-        <div className="h-[3px] bg-border-red group-hover:bg-border-red-hover drop-shadow-2xl"></div>
+        <div className="h-[3px] bg-border-red duration-300 transition-colors group-hover:bg-border-red-hover drop-shadow-2xl"></div>
       </div>
       {/* Espaçamento para o conteúdo não ficar escondido pela navbar fixa */}
       <div className="pt-[8vh]">

@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getCampaignsAsPlayerData } from "../../../data/campaigns-data";
 import { queryClient } from "../../../lib/react-query";
 import { FaSearch } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export const CampaignsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -38,11 +39,11 @@ export const CampaignsPage = () => {
               Participar de uma Campanha
             </span>
           </div>
-          <div className="text-center">
+          <Link className="text-center" to={"/create-campaign"}>
             <span className="bg-black p-1 rounded-2xl border-2 border-border-red hover:border-border-red-hover hover:text-[1.55rem] duration-300 drop-shadow-md">
               Criar Campanha
             </span>
-          </div>
+          </Link>
         </div>
         <h1 className="underline text-[1.45rem]">Campanhas:</h1>
         <div className="grid lg:grid-cols-4 md:grid-cols-3 gap-20 ">

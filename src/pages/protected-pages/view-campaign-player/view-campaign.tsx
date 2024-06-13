@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ViewCampaignAsPlayer from "./view-campaign-player";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -14,6 +15,12 @@ function ViewCampaign() {
     queryFn: () => checkIfUserIsDM(queryClient, campaignId),
   });
 
+  useEffect(() => {
+    if (!isLoading && isDm) {
+      navigate(`/campanhas/mestre/${campaignId}`);
+    }
+  }, [isDm, isLoading, navigate, campaignId]);
+
   if (isLoading) {
     return (
       <div className="bg-red-bordo w-screen h-screen fixed justify-center items-center flex text-3xl font-oswald text-white">
@@ -22,7 +29,6 @@ function ViewCampaign() {
     );
   }
 
-  if (isDm) navigate(`/campanhas/mestre/${campaignId}`);
   return (
     <div>
       <ValidatePlayer>
