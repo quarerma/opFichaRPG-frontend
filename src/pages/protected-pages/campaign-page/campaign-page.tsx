@@ -27,7 +27,7 @@ export const CampaignsPage = () => {
                 placeholder="Buscar por nome..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="text-white-text placeholder:text-white-text bg-transparent focus:outline-none"
+                className="text-white-text placeholder:text-white-text bg-transparent w-full focus:outline-none"
               />
               <div className="w-full h-[1px] drop-shadow-xl bg-white-text"></div>
             </div>
