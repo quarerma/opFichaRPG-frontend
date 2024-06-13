@@ -6,6 +6,7 @@ export type Campaign = {
   charactersId?: string[];
   playersId?: string[];
   gameMasterId: string;
+  gameMasterName?: string;
 };
 
 export type CreateCampaingDTO = {

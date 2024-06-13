@@ -82,12 +82,22 @@ export const SkillsView = ({ skills, dex, int, pre, str, vig }: SkillProps) => {
         dicesToRoll = pre;
         break;
     }
-
-    for (let i = 0; i < dicesToRoll; i++) {
-      roll = Math.floor(Math.random() * 20) + 1;
-      tempRolls.push(roll);
-      if (roll > highestRoll) {
-        highestRoll = roll;
+    if (dicesToRoll > 0) {
+      for (let i = 0; i < dicesToRoll; i++) {
+        roll = Math.floor(Math.random() * 20) + 1;
+        tempRolls.push(roll);
+        if (roll > highestRoll) {
+          highestRoll = roll;
+        }
+      }
+    } else {
+      // get the lowest roll beetwen 2 rolls
+      for (let i = 0; i < 2; i++) {
+        roll = Math.floor(Math.random() * 20) + 1;
+        tempRolls.push(roll);
+        if (roll < highestRoll) {
+          highestRoll = roll;
+        }
       }
     }
 

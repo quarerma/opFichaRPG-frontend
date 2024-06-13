@@ -4,10 +4,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        "login-gray": "#302F2F",
-        "black-filter": "#282020",
-        "red-bordo": "#4C0101",
+        "login-gray": "#3A3737",
+        "black-filter": "#111010",
+        "red-bordo": "#350A0A",
         "input-gray": "#737373",
+        "white-text": "#E1E1E1",
+        "border-red-hover": "#A90000",
+        "border-red": "#730B0B",
+        "card-gray": "#151515",
       },
       fontFamily: {
         oswald: ["Oswald", "sans-serif"],

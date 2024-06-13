@@ -29,7 +29,7 @@ export async function getCampaignsAsGameMasterData(queryClient: QueryClient) {
 }
 
 export async function getCampaignsAsPlayerData(queryClient: QueryClient) {
-  const cachedData = queryClient.getQueryData<Campaign[]>(["userCampaigns"]);
+  const cachedData = queryClient.getQueryData<Campaign[]>(["campaigns"]);
 
   if (cachedData) {
     console.log("consultou novamente");
@@ -37,7 +37,7 @@ export async function getCampaignsAsPlayerData(queryClient: QueryClient) {
   }
   try {
     console.log("fez fetch");
-    const response = await axios.get(`${BASE_URL}campaigns/getMyCampaigns`, {
+    const response = await axios.get(`${BASE_URL}campaigns/getCampaigns`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,

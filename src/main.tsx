@@ -12,7 +12,7 @@ import { Protected } from "./pages/global-components/protected-page.tsx";
 import UnProtected from "./pages/global-components/unprotected-page.tsx";
 import ValidatePlayer from "./pages/global-components/wrap-validate-player.tsx";
 import DM_Campaings from "./pages/protected-pages/campaign-dm/campaign-dm.tsx";
-import { UserCampaigns } from "./pages/protected-pages/campaign-player/campaign-player.tsx";
+import { CampaignsPage } from "./pages/protected-pages/campaign-page/campaign-page.tsx";
 import CreateCampaign from "./pages/protected-pages/create-campaign/create-campaign-page.tsx";
 import HomePage from "./pages/protected-pages/home/home.tsx";
 import ViewCampaignDM from "./pages/protected-pages/view-campaign-dm/view-campaign-dm.tsx";
@@ -22,6 +22,7 @@ import ViewCampaign from "./pages/protected-pages/view-campaign-player/view-camp
 import CreateCharacter from "./pages/protected-pages/view-campaign-player/subpages/create-character.tsx";
 import EditCharacter from "./pages/protected-pages/view-campaign-player/subpages/editCharacter.tsx";
 import { EditSkill } from "./pages/protected-pages/create-skill/create-skill.tsx";
+import { NavBar } from "./pages/global-components/nav-bar.tsx";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,9 @@ const router = createBrowserRouter([
     element: (
       <QueryClientProvider client={queryClient}>
         <Protected>
-          <UserCampaigns />
+          <NavBar>
+            <CampaignsPage />
+          </NavBar>
         </Protected>
       </QueryClientProvider>
     ),
@@ -109,7 +112,9 @@ const router = createBrowserRouter([
     element: (
       <QueryClientProvider client={queryClient}>
         <Protected>
-          <HomePage />
+          <NavBar>
+            <HomePage />
+          </NavBar>
         </Protected>
       </QueryClientProvider>
     ),
