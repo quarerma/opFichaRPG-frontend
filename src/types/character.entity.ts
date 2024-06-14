@@ -3,6 +3,7 @@ import { Skill } from "./skill.entity";
 export type Character = {
   id: string;
   campaignId: string;
+  campaignName?: string;
   playerId: string;
   name: string;
   className: string;

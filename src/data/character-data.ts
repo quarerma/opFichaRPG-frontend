@@ -68,6 +68,7 @@ export async function getUserCharacters(queryClient: QueryClient) {
       },
     });
 
+    console.log(response.data);
     return response.data as Character[];
   } catch (e) {
     console.log("erro");

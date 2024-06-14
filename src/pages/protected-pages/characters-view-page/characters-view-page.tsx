@@ -13,8 +13,8 @@ export const CharactersPageView = () => {
     queryFn: () => getUserCharacters(queryClient),
   });
 
-  const filteredCharacters = characters?.filter((campaign) =>
-    campaign.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCharacters = characters?.filter((character) =>
+    character.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return characters ? (

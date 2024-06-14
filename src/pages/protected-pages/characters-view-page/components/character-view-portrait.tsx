@@ -15,20 +15,26 @@ export const CharacterViewPortrait = ({
 
   return (
     <Link
-      to={`personagens/${character.id}`}
-      className={`w-full text-[1.3rem] group bg-card-gray h-[250px] rounded-3xl font-oswald ${commonBorderClasses} ${commonShadowClasses} overflow-hidden flex flex-col transition-colors hover:border-border-red-hover`}
+      to={`/personagens/${character.id}`}
+      className={`w-full text-[1.3rem] group bg-card-gray h-[300px] rounded-3xl font-oswald ${commonBorderClasses} ${commonShadowClasses} overflow-hidden flex flex-col transition-colors hover:border-border-red-hover`}
     >
       <div
         className={`bg-login-gray p-1 w-full text-[1.6rem] text-center rounded-tl-xl rounded-tr-xl ${commonBorderClasses}`}
       >
         <h1>{character.name}</h1>
       </div>
-      <div className="p-2 mt-2 text-[1.4rem]">
+      <div className="p-2 mt-2 text-[1.2rem]">
         <h1>
           Classe: <span>{character.className}</span>
         </h1>
         <h1>
           Subclasse: <span>{character.subClassName}</span>
+        </h1>
+        <h1>
+          Nível: <span>{character.level}</span>
+        </h1>
+        <h1 className="mt-2">
+          Campanha: <span>{character.campaignName}</span>
         </h1>
       </div>
       <div
