@@ -61,7 +61,7 @@ export async function getUserCharacters(queryClient: QueryClient) {
     return cachedData;
   }
   try {
-    const response = await axios.get(`${BASE_URL}users/getUserCharacter`, {
+    const response = await axios.get(`${BASE_URL}characters/getUserCharacter`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
