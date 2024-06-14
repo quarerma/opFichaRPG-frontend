@@ -3,6 +3,7 @@ import { BASE_URL } from "../env";
 import { Attacks, Character } from "../types/character.entity";
 import { v4 as uuidv4 } from "uuid";
 import { CreateCharacterSchema } from "../pages/protected-pages/view-campaign-player/subpages/create-character";
+import { QueryClient } from "@tanstack/react-query";
 
 const token: string | null = localStorage.getItem("jwt");
 
@@ -48,6 +49,26 @@ export async function addAttack(attack: Attacks, characterId: string) {
         },
       }
     );
+  } catch (e) {
+    console.log("erro");
+  }
+}
+
+export async function getUserCharacters(queryClient: QueryClient) {
+  const cachedData = queryClient.getQueryData<Character[]>(["characters"]);
+
+  if (cachedData) {
+    return cachedData;
+  }
+  try {
+    const response = await axios.get(`${BASE_URL}users/getUserCharacter`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data as Character[];
   } catch (e) {
     console.log("erro");
   }

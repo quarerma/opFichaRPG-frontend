@@ -32,11 +32,9 @@ export async function getCampaignsAsPlayerData(queryClient: QueryClient) {
   const cachedData = queryClient.getQueryData<Campaign[]>(["campaigns"]);
 
   if (cachedData) {
-    console.log("consultou novamente");
     return cachedData;
   }
   try {
-    console.log("fez fetch");
     const response = await axios.get(`${BASE_URL}campaigns/getCampaigns`, {
       headers: {
         "Content-Type": "application/json",
