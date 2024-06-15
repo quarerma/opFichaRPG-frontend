@@ -6,11 +6,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { BASE_URL } from "../../../env";
 import { useState } from "react";
-import HomeLogOff from "../../global-components/home-and-logoff";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const campaignFilterSchema = z.object({
-  name: z.string().min(3).max(255).trim(),
+  name: z.string().min(3).max(20).trim(),
   description: z.string().min(3).max(255).trim(),
   password: z.string().min(3).max(255),
 });
@@ -57,43 +56,46 @@ export function CreateCampaign() {
     }
   }
 
+  const baseInputClass =
+    "p-2 bg-login-gray focus:outline-none focus:ring text-2xl rounded-lg";
+  const focusRingClass = "focus:ring-border-red-hover";
+  const textClass = "";
+  const widthClass = "w-[40%]";
+
   return (
-    <div className="w-screen h-screen bg-red-bordo text-white font-oswald flex justify-center items-center">
-      <div className="absolute h-screen w-screen">
-        <HomeLogOff />
-      </div>
-      <form
-        onSubmit={handleSubmit(handleCreateCampaign)}
-        className="bg-login-gray items-center p-5 rounded-md text-center flex flex-col gap-y-2 z-10"
-      >
-        <h1 className="text-3xl mb-8">CRIAR CAMPANHA</h1>
-        <h1>NOME DA CAMPANHA</h1>
+    <div className="h-[92vh] w-full bg-red-bordo text-white-text font-oswald flex flex-col justify-center items-center">
+      <h1 className="w-[70%] text-4xl mb-5">Criar Campanha</h1>
+      <form className="w-[70%] h-[70%] p-10 bg-card-gray border-4 rounded-lg border-border-red flex flex-col gap-y-3 hover:border-border-red-hover">
+        <h1 className="text-3xl">Nome*</h1>
         <input
-          {...register("name")}
+          className={`${baseInputClass} ${widthClass} ${focusRingClass} ${textClass}`}
           type="text"
-          className="w-full p-2 rounded-md text-black"
+          {...register("name")}
         />
-        <h1>DESCRIÇÃO</h1>
-        <textarea
-          {...register("description")}
-          className="w-full p-2  rounded-md text-black"
-        />
-        <h1>SENHA</h1>
+        <h1 className="text-3xl">Senha*</h1>
         <input
+          className={`${baseInputClass} ${widthClass} ${focusRingClass} ${textClass}`}
           type="password"
           {...register("password")}
-          className="w-full p-2 rounded-md text-black "
         />
-
-        <button
-          className={`p-2 rounded-2xl w-fit text-2xl mt-2 ${
-            selectButton ? "bg-red-bordo hover:bg-red-950" : "bg-gray-900 "
-          }`}
-          disabled={!selectButton}
-          type="submit"
-        >
-          Criar
-        </button>
+        <h1 className="text-3xl">Descrição*</h1>
+        <textarea
+          className={`${baseInputClass} h-full ${focusRingClass} ${textClass}`}
+          {...register("description")}
+        />
+        <div className="flex justify-end items-center gap-x-20">
+          <Link to={"/campanhas"} className="inline-block align-middle">
+            <span className="text-2xl text-gray-500 hover:text-[1.6rem] duration-300 hover:text-white-text">
+              Cancelar
+            </span>
+          </Link>
+          <button
+            type="submit"
+            className="bg-black px-2 py-1 rounded-2xl border-2 border-border-red text-2xl hover:border-border-red-hover hover:text-[1.6rem] duration-300 drop-shadow-md"
+          >
+            Criar
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -37,9 +37,13 @@ const router = createBrowserRouter([
   {
     path: "/create-campaign",
     element: (
-      <Protected>
-        <CreateCampaign />
-      </Protected>
+      <QueryClientProvider client={queryClient}>
+        <Protected>
+          <NavBar>
+            <CreateCampaign />
+          </NavBar>
+        </Protected>
+      </QueryClientProvider>
     ),
   },
   {
