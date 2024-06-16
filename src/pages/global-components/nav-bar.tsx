@@ -1,7 +1,8 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { getUserData } from "../../data/user-data";
 import { Link } from "react-router-dom";
+import { ProfileModal } from "./profile-modal";
 
 interface NavBarProps {
   children: ReactNode;
@@ -9,6 +10,7 @@ interface NavBarProps {
 
 export const NavBar: React.FC<NavBarProps> = ({ children }) => {
   const queryClient = useQueryClient();
+  const [isProfileModalVisible, setIsProfileModalVisible] = useState(false);
   const { data: user } = useQuery({
     queryKey: ["user"],
     queryFn: () => getUserData(queryClient),
@@ -33,12 +35,21 @@ export const NavBar: React.FC<NavBarProps> = ({ children }) => {
               CAMPANHAS
             </span>
           </Link>
-          <div className="flex gap-x-2 justify-center group items-center">
-            <button className="hover:text-white hover:scale-105 duration-300">
-              {user.username}
-            </button>
+          <div className="flex flex-col gap-x-2 w-full  items-end ">
             {/* Círculo do ícone do perfil */}
-            <div className="hover:scale-105 duration-300 rounded-full h-16 w-16 flex items-center justify-center border-2 border-border-red bg-login-gray"></div>
+            <button
+              onClick={() => setIsProfileModalVisible(!isProfileModalVisible)}
+              className="hover:scale-105 duration-300 rounded-full h-16 w-16 border-2 border-border-red bg-login-gray mr-10"
+            ></button>
+            {isProfileModalVisible && (
+              <div className="w-fit">
+                <ProfileModal
+                  isOpen={isProfileModalVisible}
+                  onRequestClose={() => setIsProfileModalVisible(false)}
+                  user={user}
+                />
+              </div>
+            )}
           </div>
         </div>
         <div className="h-[3px] bg-border-red duration-300 transition-colors group-hover:bg-border-red-hover drop-shadow-2xl"></div>
