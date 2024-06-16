@@ -1,12 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { v4 as uuidv4 } from "uuid";
 
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { BASE_URL } from "../../../env";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+import { createCampaign } from "../../../data/campaigns-data";
+import { Campaign } from "../../../types/campaign.entity";
 
 const campaignFilterSchema = z.object({
   name: z.string().min(3).max(20).trim(),
@@ -14,9 +14,10 @@ const campaignFilterSchema = z.object({
   password: z.string().min(3).max(255),
 });
 
-type CampaignFilterSchema = z.infer<typeof campaignFilterSchema>;
+export type CampaignFilterSchema = z.infer<typeof campaignFilterSchema>;
 
 export function CreateCampaign() {
+  const queryClient = useQueryClient();
   const [selectButton, setSelectButton] = useState(true);
   const { register, handleSubmit } = useForm<CampaignFilterSchema>({
     resolver: zodResolver(campaignFilterSchema),
@@ -27,27 +28,19 @@ export function CreateCampaign() {
   async function handleCreateCampaign(data: CampaignFilterSchema) {
     try {
       setSelectButton(false);
-      const token: string | null = localStorage.getItem("jwt");
-      const id = uuidv4();
-      const newCampaign = {
-        id,
-        ...data,
-      };
+      const campaign = await createCampaign(queryClient, data);
 
-      const response = await axios.post(
-        `${BASE_URL}campaigns/create`,
-        newCampaign,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token} `,
-          },
-        }
-      );
+      if (!campaign) {
+        return;
+      }
 
-      console.log(response);
+      const cachedData: Campaign[] | undefined = queryClient.getQueryData([
+        "campaigns",
+      ]);
 
-      console.log(newCampaign);
+      if (cachedData) {
+        queryClient.setQueryData(["campaigns"], [...cachedData, campaign]);
+      }
       setSelectButton(true);
       localStorage.setItem("successMessage", "Campanha criada com sucesso!");
       navigate("/mestrando");
@@ -65,7 +58,10 @@ export function CreateCampaign() {
   return (
     <div className="h-[92vh] w-full bg-red-bordo text-white-text font-oswald flex flex-col justify-center items-center">
       <h1 className="w-[70%] text-4xl mb-5">Criar Campanha</h1>
-      <form className="w-[70%] h-[70%] p-10 bg-card-gray border-4 rounded-lg border-border-red flex flex-col gap-y-3 hover:border-border-red-hover">
+      <form
+        onSubmit={handleSubmit(handleCreateCampaign)}
+        className="w-[70%] h-[70%] p-10 bg-card-gray border-4 rounded-lg border-border-red flex flex-col gap-y-3 hover:border-border-red-hover"
+      >
         <h1 className="text-3xl">Nome*</h1>
         <input
           className={`${baseInputClass} ${widthClass} ${focusRingClass} ${textClass}`}
@@ -90,10 +86,10 @@ export function CreateCampaign() {
             </span>
           </Link>
           <button
+            className="p-2 bg-black rounded-lg text-2xl hover:bg-border-red-hover duration-300"
             type="submit"
-            className="bg-black px-2 py-1 rounded-2xl border-2 border-border-red text-2xl hover:border-border-red-hover hover:text-[1.6rem] duration-300 drop-shadow-md"
           >
-            Criar
+            {selectButton ? "Criar Campanha" : "Carregando..."}
           </button>
         </div>
       </form>
