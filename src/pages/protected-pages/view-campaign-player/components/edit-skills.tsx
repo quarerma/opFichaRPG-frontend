@@ -94,11 +94,11 @@ export const EditSkills = ({ character }: EditSkillsProps) => {
                     <option value="TRAINED" className="bg-gray-400">
                       Treinado
                     </option>
-                    <option value="EXPERT" className="bg-gray-400">
-                      Expert
-                    </option>
                     <option value="VETERAN" className="bg-gray-400">
                       Veterano
+                    </option>
+                    <option value="EXPERT" className="bg-gray-400">
+                      Expert
                     </option>
                   </select>
                 </td>
